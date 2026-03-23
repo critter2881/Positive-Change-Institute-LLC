@@ -1,0 +1,34 @@
+name: Arcana NFT Data Auto-Export
+
+description: Automatically generate arcana_nfts.json from arcana_nfts.py on every push to the arcana_enterprise_nfts folder.
+
+on:
+  push:
+    paths:
+      - 'arcana_enterprise_nfts/arcana_nfts.py'
+      - '.github/workflows/arcana_nft_autogen.yml'
+  workflow_dispatch:
+
+jobs:
+  export-json:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Generate arcana_nfts.json
+        run: |
+          python -c "import sys; sys.path.append('arcana_enterprise_nfts'); from arcana_nfts import arcana_nfts; import json; with open('arcana_enterprise_nfts/arcana_nfts.json', 'w') as f: json.dump(arcana_nfts, f, indent=4)"
+      
+      - name: Commit and push changes
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email 'github-actions[bot]@users.noreply.github.com'
+          git add arcana_enterprise_nfts/arcana_nfts.json
+          git diff --cached --quiet || git commit -m 'Auto-generate arcana_nfts.json from arcana_nfts.py via GitHub Actions'
+          git push
