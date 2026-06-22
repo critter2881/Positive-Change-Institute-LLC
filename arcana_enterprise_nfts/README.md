@@ -1,4 +1,4 @@
-# ARCANA ENTERPRISE NFT SYSTEM — PROMETHEUS‑GRADE DIGITAL SOVEREIGNTY
+# Arcana Enterprise NFT System — PROMETHEUS‑GRADE DIGITAL SOVEREIGNTY
 A classified‑architecture NFT framework engineered by Positive Change Institute LLC for ultra‑rare, rare, and standard digital assets with cinematic FX, metadata intelligence, and auto‑evolution protocols.
 
 Arcana Enterprise NFTs form the backbone of PCI’s sovereign digital identity layer: a multi‑tier, multi‑purpose, multi‑evolution asset class designed for enterprise‑scale deployment, lore‑driven immersion, and real‑world operational utility.
@@ -61,7 +61,7 @@ NFTs evolve based on:
 - Player performance  
 - Consistency streaks  
 - Domain specialization  
-- AI rarity recalibration  
+- AI rarity recalibration
 
 Evolution modifies:
 - Visual FX  
@@ -78,7 +78,7 @@ Each NFT includes:
 - Evolution state  
 - Audit reference  
 - Sovereign watermark  
-- PCI copyright label  
+- PCI copyright label
 
 ## SECURITY + COMPLIANCE
 - Deterministic metadata  
@@ -87,6 +87,24 @@ Each NFT includes:
 - Evolution logs  
 - PCI sovereign watermark  
 - Full audit‑ready structure  
+
+## RECOMMENDED UPGRADES & NEXT STEPS
+I added baseline artifacts to help bring this repository to production readiness. Apply or iterate on these files and then follow the suggested tasks.
+
+New files added:
+- core/metadata_schema.md — deterministic JSON Schema + best practices
+- evolution/README.md — evolution engine spec, audit log format, rules
+- config/tier_templates.yaml — tier configuration templates for ULTRA_RARE/RARE/STANDARD
+- web3/wallet_connect_example.md — gated ownership verification and XRPL QR notes
+
+Suggested immediate tasks (priority order):
+1. Add core/metadata_examples/*.json from canonical mint records (high priority — required for validators).
+2. Implement core/validators/ (Node/Python scripts) to validate metadata against the schema during CI.
+3. Create evolution/rules/v1/*.yaml to codify the first stable rule set and add tests that replay event logs to reproduce state.
+4. Wire /api/gate/verify backend using your chain indexer and emit short JWT tokens for gating.
+5. Store audit logs in immutable storage (IPFS or AR) and include log hash in NFT metadata.audit_ref.
+
+Want me to scaffold core/validators and evolution/rules/v1 with initial tests and CI? I can create a branch and open a PR instead of committing directly to main.
 
 ## LICENSE
 © 2026 Positive Change Institute LLC — All Systems, Divisions, Engines, Motifs, Insignias, and Products Are the Exclusive Property of Positive Change Institute LLC.

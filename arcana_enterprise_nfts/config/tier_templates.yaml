@@ -1,0 +1,53 @@
+# Tier Templates — arcana_enterprise_nfts/config/tier_templates.yaml
+
+# Template definitions for tiered NFT configurations. Use these as the base for your config files.
+ULTRA_RARE:
+  ticker_prefix: "ARC-UR"
+  display_name: "Ultra-Rare"
+  max_evolution_level: 10
+  fx_stack:
+    - particle
+    - holographic
+    - bloom
+    - depth_field
+    - cinematic_lighting
+  access_flags:
+    classified_lore: true
+    governance: true
+    cross_chain: true
+  modules_unlocked:
+    - enterprise_dashboard
+    - chain_integration
+    - cinematic_renderer
+
+RARE:
+  ticker_prefix: "ARC-RA"
+  display_name: "Rare"
+  max_evolution_level: 6
+  fx_stack:
+    - particle
+    - holographic
+    - bloom
+  access_flags:
+    classified_lore: false
+    governance: partial
+    cross_chain: false
+  modules_unlocked:
+    - advanced_dashboard
+    - analytics_module
+
+STANDARD:
+  ticker_prefix: "ARC-ST"
+  display_name: "Standard"
+  max_evolution_level: 3
+  fx_stack:
+    - particle
+  access_flags:
+    classified_lore: false
+    governance: false
+    cross_chain: false
+  modules_unlocked:
+    - basic_dashboard
+
+# Usage:
+# - Copy the appropriate template into config/tiers/<tier>.yaml and customize tickers, supply, and limits.
