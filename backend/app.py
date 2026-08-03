@@ -185,7 +185,7 @@ def _call_openai(
         return content, "gpt-4o"
     except Exception as exc:
         logger.error("OpenAI call failed: %s", exc)
-        return f"AI routing error: {exc}", "gpt-4o"
+        return "AI routing is temporarily unavailable.", "gpt-4o"
 
 
 def _call_grok(
@@ -217,7 +217,7 @@ def _call_grok(
         return content, "grok-3"
     except Exception as exc:
         logger.error("Grok call failed: %s", exc)
-        return f"AI routing error: {exc}", "grok-3"
+        return "AI routing is temporarily unavailable.", "grok-3"
 
 
 # ---------------------------------------------------------------------------
