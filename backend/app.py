@@ -231,6 +231,7 @@ def create_app(config: dict | None = None) -> Flask:
         if _d not in sys.path:
             sys.path.insert(0, _d)
 
+    from backend.services.defi_analysis import run_defi_analysis
     from backend.services.liquidity import get_all_liquidity
 
     app = Flask(__name__)
@@ -365,6 +366,11 @@ def create_app(config: dict | None = None) -> Flask:
     def real_time_liquidity():
         """Return on-chain liquidity pool depths per division and product ID."""
         return jsonify(get_all_liquidity(divisions_registry))
+
+    @app.route("/api/defi/analysis", methods=["GET"])
+    def defi_analysis():
+        """Return the PCI sovereign DeFi architecture analysis snapshot."""
+        return jsonify(run_defi_analysis())
 
     # ---- NFT Collections ---------------------------------------------------
     @app.route("/api/nft/collections", methods=["GET"])
