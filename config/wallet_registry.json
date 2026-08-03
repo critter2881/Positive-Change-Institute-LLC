@@ -14,16 +14,14 @@
   "Phantom": {
     "label": "Phantom",
     "chain": "Solana",
-    "address": "PLACEHOLDER_SOLANA_ADDRESS",
-    "role": "operational",
-    "_note": "Replace PLACEHOLDER_SOLANA_ADDRESS with the real Solana public key before production use"
+    "address": "phantom_wallet.eth",
+    "role": "operational"
   },
   "Trust": {
     "label": "Trust",
     "chain": "Multi-chain",
-    "address": "PLACEHOLDER_TRUST_WALLET_ADDRESS",
-    "role": "operational",
-    "_note": "Replace PLACEHOLDER_TRUST_WALLET_ADDRESS with the real address before production use"
+    "address": "trust_wallet.eth",
+    "role": "operational"
   },
   "Xaman XRPL": {
     "label": "Xaman XRPL",
