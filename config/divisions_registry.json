@@ -13,7 +13,11 @@
   },
   {
     "name": "XRPL : NFT Liquidity Ecosystem",
-    "product_ids": ["PCI_XRPL_001", "PCI_XRPL_002", "PCI_XRPL_003"]
+    "chain": "XRPL",
+    "product_ids": ["PCI_XRPL_001", "PCI_XRPL_002", "PCI_XRPL_003"],
+    "pool_addresses": {
+      "PCI_XRPL_001": "rhz5LkGZXz4fEs5T9neWtXC2vJpRVLoXVB"
+    }
   },
   {
     "name": "MID25 : Tokenomics Suite",

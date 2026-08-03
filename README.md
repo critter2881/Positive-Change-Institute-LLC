@@ -70,7 +70,15 @@ Positive-Change-Institute-LLC/
 | `GET` | `/api/divisions` | All registered divisions and product IDs |
 | `GET` | `/api/wallets` | Public wallet registry |
 | `GET` | `/api/product_metadata` | Metadata for a wallet + product ID pair |
-| `GET` | `/api/real_time_liquidity` | Real-time liquidity pool depths |
+| `GET` | `/api/real_time_liquidity` | On-chain liquidity pool depths (XRPL, Solana) |
+| `GET` | `/api/nft/collections` | Full Arcana Enterprise NFT catalog |
+| `GET` | `/api/nft/collections/<id>` | Single NFT entry by product ID |
+| `POST` | `/api/prometheus/execute` | Prometheus AI orchestration (GPT-4o / Grok-3) |
+| `GET` | `/api/analytics/summary` | Aggregated dashboard summary |
+| `GET` | `/api/gamification/tiers` | ArcanaPass tier definitions |
+| `GET` | `/api/gamification/tiers/<name>` | Single gamification tier |
+| `GET` | `/api/tokenomics/model` | Linear-vesting tokenomics projection |
+| `GET` | `/api/compliance/check` | Wallet address format + risk check |
 
 Full reference: [`docs/API.md`](docs/API.md)
 
