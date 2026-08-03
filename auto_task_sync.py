@@ -86,10 +86,19 @@ def main() -> None:
         projects = json.load(fh)
 
     for project in projects:
+        project_repo = project.get("repo", GITHUB_REPO)
+        if project_repo != GITHUB_REPO:
+            logger.warning(
+                "Project '%s' targets a different repo ('%s'); "
+                "expected '%s'. Verify this is intentional.",
+                project.get("name", "Unnamed project"),
+                project_repo,
+                GITHUB_REPO,
+            )
         create_task(
             name=project.get("name", "Unnamed project"),
             task_type=project.get("type", "unknown"),
-            repo=project.get("repo", GITHUB_REPO),
+            repo=project_repo,
             stats=project.get("stats", {}),
         )
 

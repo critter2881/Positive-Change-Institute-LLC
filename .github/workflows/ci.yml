@@ -30,7 +30,7 @@ jobs:
           pip install -r requirements.txt
 
       - name: Run flake8
-        run: python -m flake8 backend/ tests/ --max-line-length=100
+        run: python -m flake8 backend/ tests/ auto_task_sync.py --max-line-length=100
 
   # ── Syntax check ─────────────────────────────────────────────────────
   syntax:
