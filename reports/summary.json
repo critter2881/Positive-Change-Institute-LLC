@@ -1,0 +1,16 @@
+{
+  "app_name": "Positive Change Institute",
+  "structure_version": "1.0.0",
+  "division_count": 14,
+  "wallet_count": 5,
+  "file_categories": [
+    "backend",
+    "frontend",
+    "docs",
+    "config",
+    "reports",
+    "assets",
+    "renders",
+    "archive"
+  ]
+}

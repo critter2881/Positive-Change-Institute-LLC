@@ -1,0 +1,13 @@
+{
+  "app_name": "Positive Change Institute",
+  "subtitle": "Enterprise Filing-Style Master Builder",
+  "structure_version": "1.0.0",
+  "wallets": {
+    "Base": "geekstinkbreath.base.eth",
+    "Coinbase": "positivechanges.cb.id",
+    "Phantom": "phantom_wallet.eth",
+    "Trust": "trust_wallet.eth",
+    "Xaman XRPL": "rhz5LkGZXz4fEs5T9neWtXC2vJpRVLoXVB"
+  },
+  "compliance_overlay": "Made in USA - Positive Change Institute"
+}

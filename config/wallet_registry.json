@@ -1,0 +1,32 @@
+{
+  "Base": {
+    "label": "Base",
+    "chain": "Base",
+    "address": "geekstinkbreath.base.eth",
+    "role": "operational"
+  },
+  "Coinbase": {
+    "label": "Coinbase",
+    "chain": "Coinbase",
+    "address": "positivechanges.cb.id",
+    "role": "operational"
+  },
+  "Phantom": {
+    "label": "Phantom",
+    "chain": "Solana",
+    "address": "phantom_wallet.eth",
+    "role": "operational"
+  },
+  "Trust": {
+    "label": "Trust",
+    "chain": "Multi-chain",
+    "address": "trust_wallet.eth",
+    "role": "operational"
+  },
+  "Xaman XRPL": {
+    "label": "Xaman XRPL",
+    "chain": "XRPL",
+    "address": "rhz5LkGZXz4fEs5T9neWtXC2vJpRVLoXVB",
+    "role": "operational"
+  }
+}
