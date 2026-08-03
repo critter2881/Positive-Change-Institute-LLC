@@ -252,6 +252,45 @@ class TestRealTimeLiquidity:
 
 
 # ---------------------------------------------------------------------------
+# GET /api/defi/analysis
+# ---------------------------------------------------------------------------
+class TestDefiAnalysis:
+    def test_returns_200(self, client):
+        assert client.get("/api/defi/analysis").status_code == 200
+
+    def test_response_has_required_top_level_sections(self, client):
+        data = resp_json(client.get("/api/defi/analysis"))
+        for field in (
+            "amm",
+            "lp",
+            "yield",
+            "lending",
+            "bridge",
+            "routing",
+            "scenarios",
+            "resilience_score",
+        ):
+            assert field in data, f"Missing field '{field}'"
+
+    def test_response_contains_expected_default_values(self, client):
+        data = resp_json(client.get("/api/defi/analysis"))
+        assert data["amm"]["curve"] == "xyk"
+        assert data["amm"]["invariant"] == 400000000000.0
+        assert data["routing"]["route_count"] == 2
+        assert data["bridge"]["finality_seconds"] == 180
+        assert data["yield"]["yield_quality"] == "high"
+
+    def test_scenarios_include_oracle_failure(self, client):
+        data = resp_json(client.get("/api/defi/analysis"))
+        assert data["scenarios"]["oracle_failure"]["shock"] == "oracle_failure"
+        assert data["scenarios"]["oracle_failure"]["impact"] == "medium"
+
+    def test_resilience_score_matches_current_inputs(self, client):
+        data = resp_json(client.get("/api/defi/analysis"))
+        assert data["resilience_score"] == 30
+
+
+# ---------------------------------------------------------------------------
 # GET /api/real_time_liquidity — with pool addresses + mocked HTTP
 # ---------------------------------------------------------------------------
 class TestRealTimeLiquidityWithPools:

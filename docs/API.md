@@ -137,6 +137,61 @@ stale cache or `"unavailable"` if the live fetch fails.
 
 ---
 
+## DeFi Analysis
+
+### `GET /api/defi/analysis`
+
+Returns the default PCI DeFi architecture analysis snapshot spanning AMM, LP, yield,
+lending, bridge, routing, scenario stress tests, and a composite resilience score.
+
+**Response `200`**
+```json
+{
+  "amm": {
+    "curve": "xyk",
+    "invariant": 400000000000.0,
+    "fee": 0.003
+  },
+  "lp": {
+    "impermanent_loss_estimate": 0.008,
+    "fee_apr": 0.1,
+    "volatility_exposure": "medium"
+  },
+  "yield": {
+    "real_yield": 0.05,
+    "emissions": 0.02,
+    "synthetic_yield": 0.01,
+    "yield_quality": "high"
+  },
+  "lending": {
+    "utilization": 0.375,
+    "collateral_factor": 0.75,
+    "liquidation_risk": "low",
+    "oracle_risk": "medium"
+  },
+  "bridge": {
+    "finality_seconds": 180,
+    "trust_model": "optimistic",
+    "oracle_risk": "medium"
+  },
+  "routing": {
+    "route_count": 2,
+    "mev_exposure": "low",
+    "solver_network": "supported"
+  },
+  "scenarios": {
+    "volatility": {"shock": "volatility", "impact": "medium"},
+    "liquidity": {"shock": "liquidity_withdrawal", "impact": "medium"},
+    "oracle_failure": {"shock": "oracle_failure", "impact": "medium"},
+    "governance_change": {"shock": "governance_change", "impact": "low"},
+    "fee_shift": {"shock": "fee_shift", "impact": "medium"}
+  },
+  "resilience_score": 30
+}
+```
+
+---
+
 ## NFT Collections
 
 ### `GET /api/nft/collections`

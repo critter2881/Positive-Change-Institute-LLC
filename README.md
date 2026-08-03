@@ -71,6 +71,7 @@ Positive-Change-Institute-LLC/
 | `GET` | `/api/wallets` | Public wallet registry |
 | `GET` | `/api/product_metadata` | Metadata for a wallet + product ID pair |
 | `GET` | `/api/real_time_liquidity` | On-chain liquidity pool depths (XRPL, Solana) |
+| `GET` | `/api/defi/analysis` | Sovereign DeFi architecture analysis snapshot |
 | `GET` | `/api/nft/collections` | Full Arcana Enterprise NFT catalog |
 | `GET` | `/api/nft/collections/<id>` | Single NFT entry by product ID |
 | `POST` | `/api/prometheus/execute` | Prometheus AI orchestration (GPT-4o / Grok-3) |
