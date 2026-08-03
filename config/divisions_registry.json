@@ -52,6 +52,10 @@
     "product_ids": ["PCI_PROM_001", "PCI_PROM_002"]
   },
   {
+    "name": "APO : Aegis Prometheus Oracle : Sovereign Metadata",
+    "product_ids": ["PCI_APO_001", "PCI_APO_002", "PCI_APO_003", "PCI_APO_004", "PCI_APO_005", "PCI_APO_006", "PCI_APO_007"]
+  },
+  {
     "name": "Foundry : Pipeline : Liquidity Analytics",
     "product_ids": ["PCI_FND_001", "PCI_FND_002", "PCI_FND_003"]
   },
