@@ -1,51 +1,174 @@
 """
-Positive Change Institute
-Enterprise Filing-Style Master Builder
+Positive Change Institute LLC
+Enterprise Flask Backend — Application Factory
 """
 
-from flask import Flask, jsonify, request
+import json
+import logging
+import os
 import random
+from pathlib import Path
 
-app = Flask(__name__)
+from flask import Flask, jsonify, request
 
-WALLET_PATHS = {
-    "Base": "geekstinkbreath.base.eth",
-    "Coinbase": "positivechanges.cb.id",
-    "Phantom": "phantom_wallet.eth",
-    "Trust": "trust_wallet.eth",
-    "Xaman XRPL": "rhz5LkGZXz4fEs5T9neWtXC2vJpRVLoXVB",
-}
+# ---------------------------------------------------------------------------
+# Paths
+# ---------------------------------------------------------------------------
+_BASE_DIR = Path(__file__).resolve().parent.parent
+_CONFIG_DIR = _BASE_DIR / "config"
 
-DIVISIONS = {
-    "Quantum AI : Market Liquidity Engine": ["PCI_AI_001", "PCI_AI_002", "PCI_AI_003"],
-    "Arcane Blockchain : Token Liquidity Layer": ["PCI_BC_001", "PCI_BC_002"],
-    "HyperSaaS : Gamified Liquidity Platforms": ["PCI_SAAS_001", "PCI_SAAS_002"],
-    "XRPL : NFT Liquidity Ecosystem": ["PCI_XRPL_001", "PCI_XRPL_002", "PCI_XRPL_003"],
-    "MID25 : Tokenomics Suite": ["PCI_MID25_001", "PCI_MID25_002"],
-    "MNR26 : Reset Dashboard : Gamified Liquidity": ["PCI_MNR26_001", "PCI_MNR26_002", "PCI_MNR26_003"],
-    "ELF : Meme Coin : Viral Liquidity": ["PCI_ELF_001", "PCI_ELF_002", "PCI_ELF_003"],
-    "CryptoArcana : QSYS Liquidity Nodes": ["PCI_QSYS_001", "PCI_QSYS_002"],
-    "Arcanex : Stake & Liquidity Optimizer": ["PCI_ARX_001", "PCI_ARX_002"],
-    "ArcanaPass : Tiered NFT Liquidity": ["PCI_ARP_001", "PCI_ARP_002", "PCI_ARP_003"],
-    "Prometheus : AI Liquidity Orchestrator": ["PCI_PROM_001", "PCI_PROM_002"],
-    "Foundry : Pipeline : Liquidity Analytics": ["PCI_FND_001", "PCI_FND_002", "PCI_FND_003"],
-    "Linktree : Liquidity Gateway": ["PCI_LT_001", "PCI_LT_002"],
-    "Positive Change : Corporate Modules : Risk & Shield": ["PCI_PCC_001", "PCI_PCC_002", "PCI_PCC_003"],
-}
 
-@app.route("/api/product_metadata", methods=["GET"])
-def product_metadata():
-    wallet = request.args.get("wallet", "")
-    product_id = request.args.get("product_id", "")
-    division = next((k for k, v in DIVISIONS.items() if product_id in v), "Unknown Division")
-    return jsonify({"wallet": WALLET_PATHS.get(wallet, "Unknown Wallet"), "product_id": product_id, "division": division})
+def _load_json(path: Path) -> dict:
+    """Load a JSON file and return its contents."""
+    with open(path, encoding="utf-8") as fh:
+        return json.load(fh)
 
-@app.route("/api/real_time_liquidity", methods=["GET"])
-def real_time_liquidity():
-    data = {}
-    for division, products in DIVISIONS.items():
-        data[division] = {pid: {"pool_depth": round(random.uniform(5000, 500000), 2)} for pid in products}
-    return jsonify(data)
 
+def _build_wallet_map(registry: dict) -> dict:
+    """Flatten wallet_registry.json into {label: address} for quick lookup."""
+    return {key: entry["address"] for key, entry in registry.items()}
+
+
+def _build_divisions_map(registry: dict) -> dict:
+    """Convert divisions_registry.json list to {name: [product_ids]} dict."""
+    return {entry["name"]: entry["product_ids"] for entry in registry}
+
+
+# ---------------------------------------------------------------------------
+# Application factory
+# ---------------------------------------------------------------------------
+def create_app(config: dict | None = None) -> Flask:
+    """Create and configure the Flask application."""
+    app = Flask(__name__)
+
+    # ---- Logging -----------------------------------------------------------
+    log_level = (config or {}).get("LOG_LEVEL", os.getenv("LOG_LEVEL", "INFO"))
+    logging.basicConfig(
+        level=getattr(logging, log_level.upper(), logging.INFO),
+        format="%(asctime)s  %(levelname)-8s  %(name)s — %(message)s",
+    )
+    logger = logging.getLogger(__name__)
+
+    # ---- Load registries from single authoritative sources -----------------
+    wallet_registry: dict = (config or {}).get(
+        "WALLET_REGISTRY",
+        _load_json(_CONFIG_DIR / "wallet_registry.json"),
+    )
+    divisions_registry: list = (config or {}).get(
+        "DIVISIONS_REGISTRY",
+        _load_json(_CONFIG_DIR / "divisions_registry.json"),
+    )
+
+    WALLETS: dict = _build_wallet_map(wallet_registry)
+    DIVISIONS: dict = _build_divisions_map(divisions_registry)
+
+    logger.info(
+        "Registries loaded — %d wallets, %d divisions",
+        len(WALLETS),
+        len(DIVISIONS),
+    )
+
+    # ---- Error handlers ----------------------------------------------------
+    @app.errorhandler(400)
+    def bad_request(exc):
+        return jsonify({"error": "Bad request", "detail": str(exc)}), 400
+
+    @app.errorhandler(404)
+    def not_found(exc):
+        return jsonify({"error": "Resource not found"}), 404
+
+    @app.errorhandler(500)
+    def internal_error(exc):
+        logger.exception("Unhandled exception")
+        return jsonify({"error": "Internal server error"}), 500
+
+    # ---- Routes ------------------------------------------------------------
+    @app.route("/health", methods=["GET"])
+    def health():
+        """Liveness / readiness probe."""
+        return jsonify({"status": "ok", "service": "positive-change-institute"}), 200
+
+    @app.route("/api/divisions", methods=["GET"])
+    def list_divisions():
+        """Return all registered divisions with their product IDs."""
+        return jsonify(
+            [
+                {"name": name, "product_ids": pids}
+                for name, pids in DIVISIONS.items()
+            ]
+        )
+
+    @app.route("/api/wallets", methods=["GET"])
+    def list_wallets():
+        """Return the public wallet registry."""
+        return jsonify(
+            [
+                {
+                    "label": entry["label"],
+                    "chain": entry["chain"],
+                    "address": entry["address"],
+                    "role": entry["role"],
+                }
+                for entry in wallet_registry.values()
+            ]
+        )
+
+    @app.route("/api/product_metadata", methods=["GET"])
+    def product_metadata():
+        """Return metadata for a given wallet label and product ID."""
+        wallet_label = request.args.get("wallet", "").strip()
+        product_id = request.args.get("product_id", "").strip()
+
+        if not wallet_label or not product_id:
+            return (
+                jsonify(
+                    {"error": "Missing required query parameters: 'wallet' and 'product_id'"}
+                ),
+                400,
+            )
+
+        wallet_address = WALLETS.get(wallet_label)
+        if wallet_address is None:
+            return jsonify({"error": f"Unknown wallet: '{wallet_label}'"}), 404
+
+        division = next(
+            (name for name, pids in DIVISIONS.items() if product_id in pids),
+            None,
+        )
+        if division is None:
+            return jsonify({"error": f"Unknown product_id: '{product_id}'"}), 404
+
+        return jsonify(
+            {
+                "wallet": wallet_label,
+                "wallet_address": wallet_address,
+                "product_id": product_id,
+                "division": division,
+            }
+        )
+
+    @app.route("/api/real_time_liquidity", methods=["GET"])
+    def real_time_liquidity():
+        """Return simulated real-time liquidity pool depths per division."""
+        data = {
+            name: {
+                pid: {"pool_depth": round(random.uniform(5_000, 500_000), 2)}
+                for pid in pids
+            }
+            for name, pids in DIVISIONS.items()
+        }
+        return jsonify(data)
+
+    return app
+
+
+# ---------------------------------------------------------------------------
+# Entry-point
+# ---------------------------------------------------------------------------
 if __name__ == "__main__":
-    app.run(debug=True)
+    flask_app = create_app()
+    flask_app.run(
+        host=os.getenv("FLASK_HOST", "127.0.0.1"),
+        port=int(os.getenv("FLASK_PORT", "5000")),
+        debug=os.getenv("FLASK_DEBUG", "false").lower() == "true",
+    )

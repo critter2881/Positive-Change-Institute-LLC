@@ -1,0 +1,58 @@
+[
+  {
+    "name": "Quantum AI : Market Liquidity Engine",
+    "product_ids": ["PCI_AI_001", "PCI_AI_002", "PCI_AI_003"]
+  },
+  {
+    "name": "Arcane Blockchain : Token Liquidity Layer",
+    "product_ids": ["PCI_BC_001", "PCI_BC_002"]
+  },
+  {
+    "name": "HyperSaaS : Gamified Liquidity Platforms",
+    "product_ids": ["PCI_SAAS_001", "PCI_SAAS_002"]
+  },
+  {
+    "name": "XRPL : NFT Liquidity Ecosystem",
+    "product_ids": ["PCI_XRPL_001", "PCI_XRPL_002", "PCI_XRPL_003"]
+  },
+  {
+    "name": "MID25 : Tokenomics Suite",
+    "product_ids": ["PCI_MID25_001", "PCI_MID25_002"]
+  },
+  {
+    "name": "MNR26 : Reset Dashboard : Gamified Liquidity",
+    "product_ids": ["PCI_MNR26_001", "PCI_MNR26_002", "PCI_MNR26_003"]
+  },
+  {
+    "name": "ELF : Meme Coin : Viral Liquidity",
+    "product_ids": ["PCI_ELF_001", "PCI_ELF_002", "PCI_ELF_003"]
+  },
+  {
+    "name": "CryptoArcana : QSYS Liquidity Nodes",
+    "product_ids": ["PCI_QSYS_001", "PCI_QSYS_002"]
+  },
+  {
+    "name": "Arcanex : Stake & Liquidity Optimizer",
+    "product_ids": ["PCI_ARX_001", "PCI_ARX_002"]
+  },
+  {
+    "name": "ArcanaPass : Tiered NFT Liquidity",
+    "product_ids": ["PCI_ARP_001", "PCI_ARP_002", "PCI_ARP_003"]
+  },
+  {
+    "name": "Prometheus : AI Liquidity Orchestrator",
+    "product_ids": ["PCI_PROM_001", "PCI_PROM_002"]
+  },
+  {
+    "name": "Foundry : Pipeline : Liquidity Analytics",
+    "product_ids": ["PCI_FND_001", "PCI_FND_002", "PCI_FND_003"]
+  },
+  {
+    "name": "Linktree : Liquidity Gateway",
+    "product_ids": ["PCI_LT_001", "PCI_LT_002"]
+  },
+  {
+    "name": "Positive Change : Corporate Modules : Risk & Shield",
+    "product_ids": ["PCI_PCC_001", "PCI_PCC_002", "PCI_PCC_003"]
+  }
+]
