@@ -186,7 +186,7 @@ lending, bridge, routing, scenario stress tests, and a composite resilience scor
     "governance_change": {"shock": "governance_change", "impact": "low"},
     "fee_shift": {"shock": "fee_shift", "impact": "medium"}
   },
-  "resilience_score": 30
+  "resilience_score": 60
 }
 ```
 

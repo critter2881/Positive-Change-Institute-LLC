@@ -287,7 +287,7 @@ class TestDefiAnalysis:
 
     def test_resilience_score_matches_current_inputs(self, client):
         data = resp_json(client.get("/api/defi/analysis"))
-        assert data["resilience_score"] == 30
+        assert data["resilience_score"] == 60
 
 
 # ---------------------------------------------------------------------------
