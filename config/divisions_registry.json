@@ -1,5 +1,9 @@
 [
   {
+    "name": "Positive Change Institute LLC",
+    "product_ids": ["PCI_ORG_001", "PCI_ORG_002", "PCI_ORG_003"]
+  },
+  {
     "name": "Quantum AI : Market Liquidity Engine",
     "product_ids": ["PCI_AI_001", "PCI_AI_002", "PCI_AI_003"]
   },
