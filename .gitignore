@@ -1,6 +1,7 @@
 # Bytecode
 __pycache__/
 *.py[cod]
+*.pyo
 
 # Virtual environments
 .venv/
@@ -15,6 +16,7 @@ dist/
 # Local env files
 .env
 .env.*
+!.env.example
 
 # OS files
 .DS_Store
@@ -22,3 +24,18 @@ Thumbs.db
 
 # Logs
 *.log
+auto_task_sync.log
+
+# Test / coverage artefacts
+.pytest_cache/
+.coverage
+htmlcov/
+coverage.xml
+
+# IDE artefacts
+.vscode/
+.idea/
+*.swp
+
+# Generated outputs (committed intentionally via workflow)
+# arcana_enterprise_nfts/arcana_nfts.json

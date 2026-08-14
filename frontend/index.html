@@ -3,10 +3,636 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Positive Change Institute</title>
+  <meta name="description" content="Positive Change Institute LLC — Enterprise AI, Web3, and Blockchain Innovation." />
+  <title>Positive Change Institute LLC</title>
+  <style>
+    /* ── Reset & base ─────────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --color-bg:        #0a0d14;
+      --color-surface:   #111827;
+      --color-border:    #1f2937;
+      --color-primary:   #06b6d4;   /* cyan-500  */
+      --color-accent:    #818cf8;   /* indigo-400 */
+      --color-text:      #e2e8f0;
+      --color-muted:     #94a3b8;
+      --color-heading:   #f8fafc;
+      --font-sans:       'Inter', 'Segoe UI', system-ui, sans-serif;
+      --font-mono:       'JetBrains Mono', 'Fira Code', monospace;
+      --max-width:       1200px;
+      --radius:          0.5rem;
+      --transition:      0.2s ease;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--color-bg);
+      color: var(--color-text);
+      font-family: var(--font-sans);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: var(--color-primary); text-decoration: none; transition: opacity var(--transition); }
+    a:hover { opacity: 0.8; }
+
+    /* ── Navigation ───────────────────────────────────────────────────── */
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(10, 13, 20, 0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .nav__inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 1rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .nav__brand {
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      color: var(--color-heading);
+      white-space: nowrap;
+    }
+
+    .nav__brand span { color: var(--color-primary); }
+
+    .nav__links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav__links a {
+      color: var(--color-muted);
+      font-size: 0.875rem;
+      font-weight: 500;
+      transition: color var(--transition);
+    }
+
+    .nav__links a:hover { color: var(--color-primary); opacity: 1; }
+
+    .nav__cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.375rem;
+      padding: 0.5rem 1.25rem;
+      border-radius: var(--radius);
+      background: var(--color-primary);
+      color: #0a0d14;
+      font-size: 0.875rem;
+      font-weight: 700;
+      white-space: nowrap;
+      transition: background var(--transition), transform var(--transition);
+    }
+
+    .nav__cta:hover { background: #22d3ee; opacity: 1; transform: translateY(-1px); }
+
+    /* ── Hero ─────────────────────────────────────────────────────────── */
+    .hero {
+      position: relative;
+      overflow: hidden;
+      padding: 7rem 2rem 5rem;
+      text-align: center;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 80% 50% at 50% -10%, rgba(6,182,212,0.18) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero__badge {
+      display: inline-block;
+      padding: 0.25rem 1rem;
+      border: 1px solid var(--color-primary);
+      border-radius: 99px;
+      color: var(--color-primary);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 1.75rem;
+    }
+
+    .hero__title {
+      font-size: clamp(2.25rem, 5vw, 4rem);
+      font-weight: 800;
+      line-height: 1.15;
+      color: var(--color-heading);
+      max-width: 840px;
+      margin: 0 auto 1.5rem;
+      letter-spacing: -0.02em;
+    }
+
+    .hero__title em {
+      font-style: normal;
+      background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero__sub {
+      font-size: 1.125rem;
+      color: var(--color-muted);
+      max-width: 640px;
+      margin: 0 auto 2.5rem;
+    }
+
+    .hero__actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 2rem;
+      border-radius: var(--radius);
+      font-size: 0.9375rem;
+      font-weight: 700;
+      transition: all var(--transition);
+      cursor: pointer;
+    }
+
+    .btn--primary {
+      background: var(--color-primary);
+      color: #0a0d14;
+    }
+    .btn--primary:hover { background: #22d3ee; opacity: 1; transform: translateY(-2px); box-shadow: 0 8px 30px rgba(6,182,212,0.35); }
+
+    .btn--outline {
+      border: 1px solid var(--color-border);
+      color: var(--color-text);
+      background: transparent;
+    }
+    .btn--outline:hover { border-color: var(--color-primary); color: var(--color-primary); opacity: 1; }
+
+    /* ── Sections ─────────────────────────────────────────────────────── */
+    .section {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 5rem 2rem;
+    }
+
+    .section__label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--color-primary);
+      margin-bottom: 0.75rem;
+    }
+
+    .section__title {
+      font-size: clamp(1.75rem, 3vw, 2.5rem);
+      font-weight: 800;
+      color: var(--color-heading);
+      letter-spacing: -0.02em;
+      margin-bottom: 1rem;
+    }
+
+    .section__sub {
+      font-size: 1rem;
+      color: var(--color-muted);
+      max-width: 560px;
+      margin-bottom: 3rem;
+    }
+
+    /* ── Stats strip ──────────────────────────────────────────────────── */
+    .stats {
+      background: var(--color-surface);
+      border-top: 1px solid var(--color-border);
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .stats__inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 2.5rem 2rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 2rem;
+      text-align: center;
+    }
+
+    .stats__value {
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--color-primary);
+      line-height: 1;
+      margin-bottom: 0.375rem;
+    }
+
+    .stats__label {
+      font-size: 0.8125rem;
+      color: var(--color-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    /* ── Division cards ───────────────────────────────────────────────── */
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .card {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      transition: border-color var(--transition), transform var(--transition), box-shadow var(--transition);
+    }
+
+    .card:hover {
+      border-color: var(--color-primary);
+      transform: translateY(-3px);
+      box-shadow: 0 12px 32px rgba(6,182,212,0.12);
+    }
+
+    .card__icon {
+      width: 2.5rem;
+      height: 2.5rem;
+      border-radius: 0.375rem;
+      background: rgba(6,182,212,0.12);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      margin-bottom: 1rem;
+    }
+
+    .card__title {
+      font-size: 0.9375rem;
+      font-weight: 700;
+      color: var(--color-heading);
+      margin-bottom: 0.5rem;
+      line-height: 1.3;
+    }
+
+    .card__desc {
+      font-size: 0.8125rem;
+      color: var(--color-muted);
+      line-height: 1.55;
+    }
+
+    /* ── API section ──────────────────────────────────────────────────── */
+    .api-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1rem;
+    }
+
+    .api-card {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius);
+      padding: 1.25rem 1.5rem;
+    }
+
+    .api-card__method {
+      display: inline-block;
+      padding: 0.125rem 0.5rem;
+      border-radius: 0.25rem;
+      font-family: var(--font-mono);
+      font-size: 0.6875rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 0.5rem;
+    }
+
+    .api-card__method--get { background: rgba(6,182,212,0.15); color: var(--color-primary); }
+
+    .api-card__path {
+      font-family: var(--font-mono);
+      font-size: 0.875rem;
+      color: var(--color-heading);
+      margin-bottom: 0.375rem;
+    }
+
+    .api-card__desc { font-size: 0.8125rem; color: var(--color-muted); }
+
+    /* ── CTA banner ───────────────────────────────────────────────────── */
+    .cta-banner {
+      background: linear-gradient(135deg, rgba(6,182,212,0.1), rgba(129,140,248,0.1));
+      border: 1px solid rgba(6,182,212,0.25);
+      border-radius: calc(var(--radius) * 2);
+      padding: 3.5rem 2rem;
+      text-align: center;
+      max-width: var(--max-width);
+      margin: 0 auto 5rem;
+    }
+
+    .cta-banner__title {
+      font-size: clamp(1.5rem, 3vw, 2.25rem);
+      font-weight: 800;
+      color: var(--color-heading);
+      margin-bottom: 0.75rem;
+    }
+
+    .cta-banner__sub {
+      font-size: 1rem;
+      color: var(--color-muted);
+      margin-bottom: 2rem;
+    }
+
+    /* ── Footer ───────────────────────────────────────────────────────── */
+    .footer {
+      background: var(--color-surface);
+      border-top: 1px solid var(--color-border);
+    }
+
+    .footer__inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 2.5rem 2rem;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .footer__copy {
+      font-size: 0.8125rem;
+      color: var(--color-muted);
+    }
+
+    .footer__links {
+      display: flex;
+      gap: 1.5rem;
+      list-style: none;
+    }
+
+    .footer__links a {
+      font-size: 0.8125rem;
+      color: var(--color-muted);
+      transition: color var(--transition);
+    }
+
+    .footer__links a:hover { color: var(--color-primary); opacity: 1; }
+
+    /* ── Responsive ───────────────────────────────────────────────────── */
+    @media (max-width: 640px) {
+      .nav__links { display: none; }
+      .hero { padding: 5rem 1.25rem 3.5rem; }
+      .section { padding: 3.5rem 1.25rem; }
+    }
+  </style>
 </head>
 <body>
-  <h1>Positive Change Institute</h1>
-  <p>Enterprise Filing-Style Master Builder</p>
+
+  <!-- ── Navigation ──────────────────────────────────────────────────── -->
+  <nav class="nav" aria-label="Primary navigation">
+    <div class="nav__inner">
+      <span class="nav__brand">Positive <span>Change</span> Institute</span>
+      <ul class="nav__links">
+        <li><a href="#divisions">Divisions</a></li>
+        <li><a href="#api">API</a></li>
+        <li><a href="#mission">Mission</a></li>
+      </ul>
+      <a class="nav__cta" href="#api">Explore API ↗</a>
+    </div>
+  </nav>
+
+  <!-- ── Hero ────────────────────────────────────────────────────────── -->
+  <header class="hero">
+    <div class="hero__badge">Enterprise AI &amp; Web3 Platform</div>
+    <h1 class="hero__title">
+      Where Visionary Strategy Meets<br>
+      <em>Autonomous Intelligence</em>
+    </h1>
+    <p class="hero__sub">
+      Positive Change Institute LLC unites AI, Web3, blockchain, and enterprise
+      automation into fully automated, AAA-grade digital ecosystems designed to
+      evolve, scale, and self-optimize.
+    </p>
+    <div class="hero__actions">
+      <a class="btn btn--primary" href="#divisions">Explore Divisions</a>
+      <a class="btn btn--outline" href="#api">API Reference</a>
+    </div>
+  </header>
+
+  <!-- ── Stats ───────────────────────────────────────────────────────── -->
+  <div class="stats">
+    <div class="stats__inner">
+      <div>
+        <div class="stats__value">14</div>
+        <div class="stats__label">Active Divisions</div>
+      </div>
+      <div>
+        <div class="stats__value">5</div>
+        <div class="stats__label">Chain Networks</div>
+      </div>
+      <div>
+        <div class="stats__value">3</div>
+        <div class="stats__label">NFT Collections</div>
+      </div>
+      <div>
+        <div class="stats__value">∞</div>
+        <div class="stats__label">Evolution Potential</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Divisions ───────────────────────────────────────────────────── -->
+  <section id="divisions" class="section">
+    <p class="section__label">Portfolio</p>
+    <h2 class="section__title">Enterprise Divisions</h2>
+    <p class="section__sub">
+      Each division represents a sovereign liquidity vertical — engineered for
+      scale, automation, and cross-chain operability.
+    </p>
+    <div class="cards">
+
+      <div class="card">
+        <div class="card__icon">🤖</div>
+        <div class="card__title">Quantum AI : Market Liquidity Engine</div>
+        <div class="card__desc">Autonomous AI pipelines driving real-time market intelligence and liquidity optimization at scale.</div>
+      </div>
+
+      <div class="card">
+        <div class="card__icon">⛓️</div>
+        <div class="card__title">Arcane Blockchain : Token Liquidity Layer</div>
+        <div class="card__desc">Cross-chain token infrastructure built for deep liquidity and high-frequency settlement.</div>
+      </div>
+
+      <div class="card">
+        <div class="card__icon">🎮</div>
+        <div class="card__title">HyperSaaS : Gamified Liquidity Platforms</div>
+        <div class="card__desc">Engagement-first SaaS products that convert community participation into measurable liquidity.</div>
+      </div>
+
+      <div class="card">
+        <div class="card__icon">🌐</div>
+        <div class="card__title">XRPL : NFT Liquidity Ecosystem</div>
+        <div class="card__desc">XRP Ledger-native NFT collections with programmable royalties and auto-evolving metadata.</div>
+      </div>
+
+      <div class="card">
+        <div class="card__icon">📊</div>
+        <div class="card__title">MID25 : Tokenomics Suite</div>
+        <div class="card__desc">Precision tokenomics design, modeling, and deployment tooling for enterprise token launches.</div>
+      </div>
+
+      <div class="card">
+        <div class="card__icon">🔄</div>
+        <div class="card__title">MNR26 : Reset Dashboard</div>
+        <div class="card__desc">Gamified liquidity reset mechanics for protocol rebalancing and community-driven governance.</div>
+      </div>
+
+      <div class="card">
+        <div class="card__icon">🚀</div>
+        <div class="card__title">ELF : Meme Coin : Viral Liquidity</div>
+        <div class="card__desc">Culturally resonant meme-economy assets engineered for viral growth and deep liquidity pools.</div>
+      </div>
+
+      <div class="card">
+        <div class="card__icon">🔮</div>
+        <div class="card__title">CryptoArcana : QSYS Liquidity Nodes</div>
+        <div class="card__desc">Quantum-inspired liquidity node infrastructure powering distributed settlement networks.</div>
+      </div>
+
+      <div class="card">
+        <div class="card__icon">💎</div>
+        <div class="card__title">Arcanex : Stake &amp; Liquidity Optimizer</div>
+        <div class="card__desc">Automated staking strategies that maximize yield while maintaining protocol liquidity health.</div>
+      </div>
+
+      <div class="card">
+        <div class="card__icon">🎫</div>
+        <div class="card__title">ArcanaPass : Tiered NFT Liquidity</div>
+        <div class="card__desc">Membership-gated NFT passes unlocking tiered liquidity rewards and enterprise governance rights.</div>
+      </div>
+
+      <div class="card">
+        <div class="card__icon">⚡</div>
+        <div class="card__title">Prometheus : AI Liquidity Orchestrator</div>
+        <div class="card__desc">Superintelligence-powered orchestration layer coordinating cross-division liquidity flows in real time.</div>
+      </div>
+
+      <div class="card">
+        <div class="card__icon">🏗️</div>
+        <div class="card__title">Foundry : Pipeline : Liquidity Analytics</div>
+        <div class="card__desc">Enterprise data pipeline and analytics suite delivering real-time liquidity visibility and forecasting.</div>
+      </div>
+
+      <div class="card">
+        <div class="card__icon">🔗</div>
+        <div class="card__title">Linktree : Liquidity Gateway</div>
+        <div class="card__desc">Unified multi-chain gateway connecting ecosystem participants to all liquidity verticals.</div>
+      </div>
+
+      <div class="card">
+        <div class="card__icon">🛡️</div>
+        <div class="card__title">Positive Change : Corporate Modules</div>
+        <div class="card__desc">Risk management and compliance modules ensuring institutional-grade protection across all operations.</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── API Reference ───────────────────────────────────────────────── -->
+  <section id="api" class="section" style="padding-top:0;">
+    <p class="section__label">Developer</p>
+    <h2 class="section__title">REST API Reference</h2>
+    <p class="section__sub">
+      The backend exposes a versioned HTTP API. All responses are JSON.
+      Run <code style="font-family:var(--font-mono);color:var(--color-primary);">GET /health</code> to verify connectivity.
+    </p>
+    <div class="api-grid">
+
+      <div class="api-card">
+        <span class="api-card__method api-card__method--get">GET</span>
+        <div class="api-card__path">/health</div>
+        <div class="api-card__desc">Liveness and readiness probe. Returns <code>{"status":"ok"}</code>.</div>
+      </div>
+
+      <div class="api-card">
+        <span class="api-card__method api-card__method--get">GET</span>
+        <div class="api-card__path">/api/divisions</div>
+        <div class="api-card__desc">Returns all registered divisions and their associated product IDs.</div>
+      </div>
+
+      <div class="api-card">
+        <span class="api-card__method api-card__method--get">GET</span>
+        <div class="api-card__path">/api/wallets</div>
+        <div class="api-card__desc">Returns the public wallet registry with chain and address metadata.</div>
+      </div>
+
+      <div class="api-card">
+        <span class="api-card__method api-card__method--get">GET</span>
+        <div class="api-card__path">/api/product_metadata</div>
+        <div class="api-card__desc">Resolves a <code>wallet</code> + <code>product_id</code> pair to division metadata.</div>
+      </div>
+
+      <div class="api-card">
+        <span class="api-card__method api-card__method--get">GET</span>
+        <div class="api-card__path">/api/real_time_liquidity</div>
+        <div class="api-card__desc">Returns simulated real-time liquidity pool depths across all divisions.</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── Mission ─────────────────────────────────────────────────────── -->
+  <section id="mission" class="section" style="padding-top:0;">
+    <p class="section__label">About</p>
+    <h2 class="section__title">Our Mission</h2>
+    <p style="font-size:1.0625rem;color:var(--color-muted);max-width:720px;line-height:1.75;">
+      Founded and led by <strong style="color:var(--color-text);">Christopher S. Rowland Sr.</strong>, Positive Change Institute LLC
+      empowers investors, enterprises, and innovators to harness the transformative potential of
+      autonomous AI and blockchain technologies — creating measurable impact, sustainability, and
+      long-term digital sovereignty. Leveraging proprietary AI pipelines combining GPT, Grok, and
+      multi-intelligence architectures, the Institute orchestrates highly sophisticated, automated
+      digital ecosystems that evolve, scale, and self-optimize over time.
+    </p>
+  </section>
+
+  <!-- ── CTA ─────────────────────────────────────────────────────────── -->
+  <div style="padding:0 2rem;">
+    <div class="cta-banner">
+      <h2 class="cta-banner__title">Ready to Build the Future?</h2>
+      <p class="cta-banner__sub">
+        Join the ecosystem. Explore the API. Deploy autonomous intelligence.
+      </p>
+      <a class="btn btn--primary" href="#api">Get Started →</a>
+    </div>
+  </div>
+
+  <!-- ── Footer ──────────────────────────────────────────────────────── -->
+  <footer class="footer">
+    <div class="footer__inner">
+      <span class="footer__copy">
+        © 2026 Positive Change Institute LLC. All rights reserved.
+      </span>
+      <ul class="footer__links">
+        <li><a href="docs/API.md">API Docs</a></li>
+        <li><a href="docs/ARCHITECTURE.md">Architecture</a></li>
+        <li><a href="LICENSE">License</a></li>
+      </ul>
+    </div>
+  </footer>
+
 </body>
 </html>
