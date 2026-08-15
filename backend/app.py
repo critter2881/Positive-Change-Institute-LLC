@@ -252,18 +252,33 @@ def _resolve_prometheus_division(
     """Resolve the best-fit division for local Prometheus routing."""
     known_divisions = tuple(divisions.keys())
     normalized_division = _normalize_lookup(division)
+    division_tokens = tuple(normalized_division.split())
+    division_token_set = set(division_tokens)
 
     if normalized_division:
         for name in known_divisions:
             normalized_name = _normalize_lookup(name)
             if normalized_division == normalized_name:
                 return name
-            if normalized_division in normalized_name or normalized_name in normalized_division:
+            if len(division_tokens) > 1 and (
+                normalized_name.startswith(f"{normalized_division} ")
+                or normalized_name.endswith(f" {normalized_division}")
+                or f" {normalized_division} " in f" {normalized_name} "
+            ):
+                return name
+
+            name_tokens = tuple(normalized_name.split())
+            if len(name_tokens) > 1 and (
+                normalized_division.startswith(f"{normalized_name} ")
+                or normalized_division.endswith(f" {normalized_name}")
+                or f" {normalized_name} " in f" {normalized_division} "
+            ):
                 return name
 
     haystack = _normalize_lookup(
         " ".join([task, division, json.dumps(context, sort_keys=True, default=str)])
     )
+    haystack_tokens = set(haystack.split())
     best_match = "Prometheus : AI Liquidity Orchestrator"
     best_score = 0
 
@@ -271,8 +286,8 @@ def _resolve_prometheus_division(
         if name not in divisions:
             continue
 
-        score = sum(1 for keyword in keywords if keyword in haystack.split())
-        if normalized_division and any(keyword in normalized_division for keyword in keywords):
+        score = sum(1 for keyword in keywords if keyword in haystack_tokens)
+        if division_token_set.intersection(keywords):
             score += 2
         if score > best_score:
             best_match = name

@@ -452,6 +452,20 @@ class TestPrometheus:
         assert data["division"] == "Quantum AI"
         assert data["routed_division"] == "Quantum AI : Market Liquidity Engine"
 
+    def test_short_division_fragment_routes_by_keywords_not_substring_match(
+        self, client, monkeypatch
+    ):
+        monkeypatch.delenv("OPENAI_API_KEY", raising=False)
+        monkeypatch.delenv("GROK_API_KEY", raising=False)
+        data = resp_json(
+            client.post(
+                "/api/prometheus/execute",
+                json={"task": "test", "division": "AI"},
+            )
+        )
+        assert data["division"] == "AI"
+        assert data["routed_division"] == "Prometheus : AI Liquidity Orchestrator"
+
     def test_status_is_ok(self, client):
         data = resp_json(
             client.post("/api/prometheus/execute", json={"task": "test"})
