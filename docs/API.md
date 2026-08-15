@@ -153,9 +153,9 @@ lending, bridge, routing, scenario stress tests, and a composite resilience scor
     "fee": 0.003
   },
   "lp": {
-    "impermanent_loss_estimate": 0.008,
+    "impermanent_loss_estimate": 0.004,
     "fee_apr": 0.1,
-    "volatility_exposure": "medium"
+    "volatility_exposure": "low"
   },
   "yield": {
     "real_yield": 0.05,
@@ -167,7 +167,7 @@ lending, bridge, routing, scenario stress tests, and a composite resilience scor
     "utilization": 0.375,
     "collateral_factor": 0.75,
     "liquidation_risk": "low",
-    "oracle_risk": "medium"
+    "oracle_risk": "low"
   },
   "bridge": {
     "finality_seconds": 180,
@@ -186,7 +186,7 @@ lending, bridge, routing, scenario stress tests, and a composite resilience scor
     "governance_change": {"shock": "governance_change", "impact": "low"},
     "fee_shift": {"shock": "fee_shift", "impact": "medium"}
   },
-  "resilience_score": 60
+  "resilience_score": 100
 }
 ```
 

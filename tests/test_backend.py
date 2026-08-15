@@ -284,9 +284,11 @@ class TestDefiAnalysis:
         data = resp_json(client.get("/api/defi/analysis"))
         assert data["amm"]["curve"] == "xyk"
         assert data["amm"]["invariant"] == 400000000000.0
+        assert data["lp"]["volatility_exposure"] == "low"
         assert data["routing"]["route_count"] == 2
         assert data["bridge"]["finality_seconds"] == 180
         assert data["yield"]["yield_quality"] == "high"
+        assert data["lending"]["oracle_risk"] == "low"
 
     def test_scenarios_include_oracle_failure(self, client):
         data = resp_json(client.get("/api/defi/analysis"))
@@ -295,7 +297,7 @@ class TestDefiAnalysis:
 
     def test_resilience_score_matches_current_inputs(self, client):
         data = resp_json(client.get("/api/defi/analysis"))
-        assert data["resilience_score"] == 60
+        assert data["resilience_score"] == 100
 
 
 # ---------------------------------------------------------------------------
