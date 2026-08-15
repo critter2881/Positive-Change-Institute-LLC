@@ -113,7 +113,13 @@ jobs:
 
       - name: Validate config JSON
         run: |
-          for f in config/*.json; do
+          shopt -s nullglob
+          config_files=(config/*.json)
+          if [ ${#config_files[@]} -eq 0 ]; then
+            echo "::error::No config JSON files found under config/."
+            exit 1
+          fi
+          for f in "${config_files[@]}"; do
             echo "Validating $f ..."
             python -c "import json; json.load(open('$f', encoding='utf-8'))"
           done
