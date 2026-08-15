@@ -109,6 +109,8 @@ GitHub Actions workflows are defined in `.github/workflows/`:
 
 | Workflow | Trigger | Jobs |
 |----------|---------|------|
-| `ci.yml` | Push / PR to `main` | Lint → Syntax check → Tests (3.11 + 3.12) → Config validation |
-| `arcana_nft_autogen.yml` | Push to `arcana_enterprise_nfts/` | Export NFT metadata to JSON |
-| `sync_to_project_board.yaml` | Push / closed PR | Project board sync (placeholder) |
+| `ci.yml` | Push / PR to `main` + manual dispatch | Lint → Syntax check → Tests (3.11 + 3.12) → Config validation |
+| `push_automation.yml` | Push / PR for docs, config, workflow, and Python metadata changes | Documentation link validation → Config validation → Targeted pytest |
+| `arcana_nft_autogen.yml` | Push / PR for Arcana NFT catalog changes + manual dispatch | Validate generated NFT JSON and sync `arcana_nfts.json` on `main` |
+
+The push automation workflow is intentionally scoped to documentation, configuration, and workflow updates so repository hygiene remains enforced without introducing placeholder steps. The Arcana catalog workflow keeps the checked-in JSON artifact synchronized from the Python source on `main` while rejecting out-of-date generated output in pull requests.

@@ -1,0 +1,123 @@
+name: Push Automation
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - README.md
+      - docs/**
+      - config/*.json
+      - .github/workflows/**
+      - requirements.txt
+      - pytest.ini
+  pull_request:
+    branches: [ main ]
+    paths:
+      - README.md
+      - docs/**
+      - config/*.json
+      - .github/workflows/**
+      - requirements.txt
+      - pytest.ini
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: push-automation-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-documentation:
+    name: Validate documentation and links
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Validate required documentation and local links
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+
+          root = Path.cwd().resolve()
+          required = [
+              root / "README.md",
+              root / "docs" / "README.md",
+              root / "docs" / "API.md",
+              root / "docs" / "ARCHITECTURE.md",
+              root / "docs" / "SETUP.md",
+              root / "docs" / "CONTRIBUTING.md",
+          ]
+          missing = [str(path.relative_to(root)) for path in required if not path.exists()]
+          if missing:
+              raise SystemExit("Missing required documentation files:\n- " + "\n- ".join(missing))
+
+          markdown_files = [root / "README.md", *sorted((root / "docs").glob("*.md"))]
+          link_pattern = re.compile(r'!?\[[^\]]*\]\(([^)]+)\)')
+          errors = []
+
+          for markdown_file in markdown_files:
+              text = markdown_file.read_text(encoding="utf-8")
+              for target in link_pattern.findall(text):
+                  target = target.strip()
+                  if not target or target.startswith(("http://", "https://", "mailto:", "#")):
+                      continue
+
+                  local_target = target.split("#", 1)[0].strip()
+                  if not local_target:
+                      continue
+
+                  resolved = (markdown_file.parent / local_target).resolve()
+                  try:
+                      resolved.relative_to(root)
+                  except ValueError:
+                      errors.append(
+                          f"{markdown_file.relative_to(root)}: link escapes repository root -> {target}"
+                      )
+                      continue
+
+                  if not resolved.exists():
+                      errors.append(
+                          f"{markdown_file.relative_to(root)}: missing link target -> {target}"
+                      )
+
+          if errors:
+              raise SystemExit("Documentation validation failed:\n- " + "\n- ".join(errors))
+
+          print(f"Validated {len(markdown_files)} markdown files and their local links.")
+          PY
+
+  validate-config-and-tests:
+    name: Validate config and pytest
+    runs-on: ubuntu-latest
+    needs: validate-documentation
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Validate config JSON
+        run: |
+          for f in config/*.json; do
+            echo "Validating $f ..."
+            python -c "import json; json.load(open('$f', encoding='utf-8'))"
+          done
+
+      - name: Run targeted pytest suite
+        run: |
+          python -m pytest tests/test_backend.py tests/test_arcana_nfts.py -q

@@ -1,17 +1,32 @@
-name: Arcana NFT Data Auto-Export
-
-description: Automatically generate arcana_nfts.json from arcana_nfts.py on every push to the arcana_enterprise_nfts folder.
+name: Arcana NFT Catalog Automation
 
 on:
   push:
+    branches: [ main ]
     paths:
       - 'arcana_enterprise_nfts/arcana_nfts.py'
       - '.github/workflows/arcana_nft_autogen.yml'
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'arcana_enterprise_nfts/arcana_nfts.py'
+      - 'arcana_enterprise_nfts/arcana_nfts.json'
+      - '.github/workflows/arcana_nft_autogen.yml'
   workflow_dispatch:
 
+permissions:
+  contents: read
+
+concurrency:
+  group: arcana-nft-catalog-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
-  export-json:
+  validate-catalog:
+    name: Validate generated NFT catalog
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -21,14 +36,57 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Generate arcana_nfts.json
+      - name: Generate expected arcana_nfts.json
         run: |
-          python -c "import sys; sys.path.append('arcana_enterprise_nfts'); from arcana_nfts import arcana_nfts; import json; with open('arcana_enterprise_nfts/arcana_nfts.json', 'w') as f: json.dump(arcana_nfts, f, indent=4)"
-      
-      - name: Commit and push changes
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          from arcana_enterprise_nfts.arcana_nfts import arcana_nfts
+
+          output_path = Path("arcana_enterprise_nfts/arcana_nfts.generated.json")
+          output_path.write_text(json.dumps(arcana_nfts, indent=2) + "\n", encoding="utf-8")
+          PY
+
+      - name: Verify checked-in catalog matches source
+        run: |
+          if ! diff -u arcana_enterprise_nfts/arcana_nfts.json arcana_enterprise_nfts/arcana_nfts.generated.json; then
+            echo "::error::arcana_nfts.json is out of sync with arcana_nfts.py. Regenerate and commit the catalog."
+            exit 1
+          fi
+
+  sync-catalog:
+    name: Sync generated NFT catalog on main
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main' && github.actor != 'github-actions[bot]'
+    needs: validate-catalog
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Regenerate arcana_nfts.json
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          from arcana_enterprise_nfts.arcana_nfts import arcana_nfts
+
+          output_path = Path("arcana_enterprise_nfts/arcana_nfts.json")
+          output_path.write_text(json.dumps(arcana_nfts, indent=2) + "\n", encoding="utf-8")
+          PY
+
+      - name: Commit generated catalog if needed
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email 'github-actions[bot]@users.noreply.github.com'
           git add arcana_enterprise_nfts/arcana_nfts.json
-          git diff --cached --quiet || git commit -m 'Auto-generate arcana_nfts.json from arcana_nfts.py via GitHub Actions'
-          git push
+          git diff --cached --quiet || git commit -m 'chore(arcana): sync generated NFT catalog'
+
+      - name: Push generated catalog
+        run: git push
