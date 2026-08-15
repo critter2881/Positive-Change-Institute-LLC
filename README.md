@@ -10,9 +10,41 @@
 
 ## Overview
 
-Positive Change Institute LLC develops fully automated, AAA-grade turnkey digital solutions including XRPL and Solana token economies, NFT ecosystems with auto-evolving dynamics, and cross-platform dApps — all designed to transform digital ecosystems into living, scalable businesses.
+Positive Change Institute LLC develops fully automated, AAA-grade turnkey digital solutions including XRPL and Solana token economies, NFT ecosystems with auto-evolving dynamics, and cross-platform enterprise automation systems.
 
-Founded and led by **Christopher S. Rowland Sr.**, the Institute leverages proprietary AI pipelines combining GPT, Grok, and multi-intelligence architectures to orchestrate sophisticated, self-optimizing digital ecosystems.
+Founded and led by **Christopher S. Rowland Sr.**, the Institute leverages proprietary AI pipelines combining GPT, Grok, and multi-intelligence architectures to orchestrate sophisticated, self-optimizing workflows across product, operations, and compliance domains.
+
+---
+
+## Compliance and Governance Commitment
+
+This repository is maintained with a strong commitment to professionalism, operational integrity, and compliance-aware engineering practices.
+
+All products, services, workflows, and automation systems associated with this repository are intended to be developed, reviewed, and maintained in alignment with applicable legal, regulatory, contractual, and organizational requirements. This includes, where relevant, considerations related to the U.S. Clarity Act, enterprise governance, documentation standards, data handling, and system accountability.
+
+### Principles
+- Compliance considerations are treated as a design requirement, not an afterthought.
+- Documentation should be clear, current, and suitable for long-term enterprise use.
+- Automation should be auditable, maintainable, and operationally transparent.
+- Source control should reflect a single coherent system of record.
+- Placeholder, fragmentary, or abandoned artifacts should be removed or consolidated.
+
+### Review Expectations
+Before release or deployment, the repository and its outputs should be reviewed for:
+- legal and policy alignment
+- security and access control
+- documentation completeness
+- removal of empty or obsolete artifacts
+- consistent structure across current and future automation workflows
+
+### Status
+This statement reflects the repository’s intended operating standard and governance posture. Final compliance determinations must be validated by qualified review against the specific requirements that apply to each use case.
+
+---
+
+## Clarity Act
+
+This repository references the U.S. Clarity Act as part of its policy and documentation framework. Any enterprise automation, workflow organization, or compliance-related process in this repository should remain aligned with the Clarity Act where applicable.
 
 ---
 
@@ -101,6 +133,7 @@ ArcanaPass · Prometheus Orchestrator · Foundry Analytics · Linktree Gateway �
 | [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) | Architecture overview |
 | [docs/SETUP.md](docs/SETUP.md) | Setup and deployment |
 | [docs/CONTRIBUTING.md](docs/CONTRIBUTING.md) | Contribution guidelines |
+| [docs/README.md](docs/README.md) | Top-level documentation overview |
 
 ---
 
