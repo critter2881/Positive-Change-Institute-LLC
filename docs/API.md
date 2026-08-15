@@ -215,7 +215,7 @@ Returns a single NFT entry by product ID (e.g. `FORGE-001`).
 ### `POST /api/prometheus/execute`
 
 Routes a task to the Prometheus AI intelligence layer. Uses OpenAI (`OPENAI_API_KEY`) or
-Grok (`GROK_API_KEY`) if configured; otherwise operates in demo mode.
+Grok (`GROK_API_KEY`) if configured; otherwise falls back to a doctrine-based local router.
 
 **Request body**
 ```json
@@ -231,6 +231,7 @@ Grok (`GROK_API_KEY`) if configured; otherwise operates in demo mode.
 {
   "task": "Analyze XRPL liquidity trends",
   "division": "XRPL : NFT Liquidity Ecosystem",
+  "routed_division": "XRPL : NFT Liquidity Ecosystem",
   "result": "AI-generated response …",
   "model": "gpt-4o",
   "status": "ok",

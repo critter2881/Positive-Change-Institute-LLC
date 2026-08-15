@@ -156,6 +156,151 @@ def _compute_tokenomics(
     }
 
 
+def _normalize_lookup(value: str) -> str:
+    """Normalize user-facing labels for loose matching."""
+    return re.sub(r"[^a-z0-9]+", " ", value.lower()).strip()
+
+
+_PROMETHEUS_ROUTE_KEYWORDS = {
+    "Quantum AI : Market Liquidity Engine": (
+        "quantum",
+        "market",
+        "signal",
+        "trading",
+    ),
+    "Arcane Blockchain : Token Liquidity Layer": (
+        "arcane",
+        "blockchain",
+        "bridge",
+        "chain",
+        "token",
+    ),
+    "HyperSaaS : Gamified Liquidity Platforms": (
+        "engagement",
+        "gamified",
+        "hypersaas",
+        "platform",
+        "saas",
+    ),
+    "XRPL : NFT Liquidity Ecosystem": ("nft", "xrp", "xrpl"),
+    "MID25 : Tokenomics Suite": ("fdv", "mid25", "supply", "tokenomics", "vesting"),
+    "MNR26 : Reset Dashboard : Gamified Liquidity": (
+        "dashboard",
+        "mnr26",
+        "rebalance",
+        "rebalancing",
+        "reset",
+    ),
+    "ELF : Meme Coin : Viral Liquidity": ("elf", "meme", "viral"),
+    "CryptoArcana : QSYS Liquidity Nodes": (
+        "cryptoarcana",
+        "node",
+        "nodes",
+        "qsys",
+        "settlement",
+    ),
+    "Arcanex : Stake & Liquidity Optimizer": (
+        "arcanex",
+        "stake",
+        "staking",
+        "yield",
+    ),
+    "ArcanaPass : Tiered NFT Liquidity": (
+        "access",
+        "arcanapass",
+        "membership",
+        "pass",
+        "rewards",
+        "tier",
+    ),
+    "Prometheus : AI Liquidity Orchestrator": (
+        "ai",
+        "automation",
+        "orchestrator",
+        "prometheus",
+        "workflow",
+    ),
+    "APO : Aegis Prometheus Oracle : Sovereign Metadata": (
+        "apo",
+        "doctrine",
+        "integrity",
+        "metadata",
+        "oracle",
+        "sovereign",
+    ),
+    "Foundry : Pipeline : Liquidity Analytics": (
+        "analytics",
+        "data",
+        "forecast",
+        "foundry",
+        "metrics",
+        "pipeline",
+    ),
+    "Linktree : Liquidity Gateway": ("gateway", "linktree", "portal", "routing"),
+    "Positive Change : Corporate Modules : Risk & Shield": (
+        "compliance",
+        "corporate",
+        "risk",
+        "shield",
+    ),
+}
+
+
+def _resolve_prometheus_division(
+    task: str, division: str, context: dict, divisions: dict
+) -> str:
+    """Resolve the best-fit division for local Prometheus routing."""
+    known_divisions = tuple(divisions.keys())
+    normalized_division = _normalize_lookup(division)
+
+    if normalized_division:
+        for name in known_divisions:
+            normalized_name = _normalize_lookup(name)
+            if normalized_division == normalized_name:
+                return name
+            if normalized_division in normalized_name or normalized_name in normalized_division:
+                return name
+
+    haystack = _normalize_lookup(
+        " ".join([task, division, json.dumps(context, sort_keys=True, default=str)])
+    )
+    best_match = "Prometheus : AI Liquidity Orchestrator"
+    best_score = 0
+
+    for name, keywords in _PROMETHEUS_ROUTE_KEYWORDS.items():
+        if name not in divisions:
+            continue
+
+        score = sum(1 for keyword in keywords if keyword in haystack.split())
+        if normalized_division and any(keyword in normalized_division for keyword in keywords):
+            score += 2
+        if score > best_score:
+            best_match = name
+            best_score = score
+
+    if best_match in divisions:
+        return best_match
+    return next(iter(known_divisions), "Prometheus : AI Liquidity Orchestrator")
+
+
+def _build_local_prometheus_result(task: str, routed_division: str) -> str:
+    """Return a doctrine-grounded local routing response."""
+    if routed_division == "APO : Aegis Prometheus Oracle : Sovereign Metadata":
+        return (
+            f"Prometheus sovereign routing assigned '{task}' to '{routed_division}' "
+            "for doctrine enforcement, metadata integrity, and source-of-truth validation."
+        )
+    if routed_division == "Prometheus : AI Liquidity Orchestrator":
+        return (
+            f"Prometheus sovereign routing retained '{task}' in '{routed_division}' "
+            "for cross-division classification, dispatch, and orchestration oversight."
+        )
+    return (
+        f"Prometheus sovereign routing assigned '{task}' to '{routed_division}' "
+        "with APO doctrine enforcement and cross-division visibility."
+    )
+
+
 def _call_openai(
     task: str, division: str, context: dict, api_key: str, logger: logging.Logger
 ) -> tuple:
@@ -412,17 +557,19 @@ def create_app(config: dict | None = None) -> Flask:
                 task, division, context, grok_key, logger
             )
         else:
-            ai_result = (
-                f"[DEMO] Prometheus would route '{task}' for division "
-                f"'{division or 'all'}' to the optimal intelligence layer. "
-                "Set OPENAI_API_KEY or GROK_API_KEY to enable live AI routing."
+            routed_division = _resolve_prometheus_division(
+                task, division, context, DIVISIONS
             )
-            model_used = "demo"
+            ai_result = _build_local_prometheus_result(task, routed_division)
+            model_used = "local-router"
+        if openai_key or grok_key:
+            routed_division = division or "all"
 
         return jsonify(
             {
                 "task": task,
                 "division": division or "all",
+                "routed_division": routed_division,
                 "result": ai_result,
                 "model": model_used,
                 "status": "ok",

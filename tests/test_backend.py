@@ -31,6 +31,14 @@ DIVISIONS_REGISTRY = [
         "product_ids": ["PCI_AI_001", "PCI_AI_002"],
     },
     {
+        "name": "Prometheus : AI Liquidity Orchestrator",
+        "product_ids": ["PCI_PROM_001"],
+    },
+    {
+        "name": "APO : Aegis Prometheus Oracle : Sovereign Metadata",
+        "product_ids": ["PCI_APO_001"],
+    },
+    {
         "name": "XRPL : NFT Liquidity Ecosystem",
         "product_ids": ["PCI_XRPL_001"],
     },
@@ -396,10 +404,18 @@ class TestPrometheus:
                 json={"task": "test", "division": "XRPL"},
             )
         )
-        for field in ("task", "division", "result", "model", "status", "timestamp"):
+        for field in (
+            "task",
+            "division",
+            "routed_division",
+            "result",
+            "model",
+            "status",
+            "timestamp",
+        ):
             assert field in data, f"Missing field '{field}'"
 
-    def test_demo_mode_when_no_api_key(self, client, monkeypatch):
+    def test_local_router_mode_when_no_api_key(self, client, monkeypatch):
         monkeypatch.delenv("OPENAI_API_KEY", raising=False)
         monkeypatch.delenv("GROK_API_KEY", raising=False)
         data = resp_json(
@@ -408,10 +424,24 @@ class TestPrometheus:
                 json={"task": "test task"},
             )
         )
-        assert data["model"] == "demo"
-        assert "[DEMO]" in data["result"]
+        assert data["model"] == "local-router"
+        assert "Prometheus sovereign routing" in data["result"]
+        assert data["routed_division"] == "Prometheus : AI Liquidity Orchestrator"
 
-    def test_task_and_division_echoed(self, client):
+    def test_infers_routed_division_from_task_when_no_api_key(self, client, monkeypatch):
+        monkeypatch.delenv("OPENAI_API_KEY", raising=False)
+        monkeypatch.delenv("GROK_API_KEY", raising=False)
+        data = resp_json(
+            client.post(
+                "/api/prometheus/execute",
+                json={"task": "Analyze XRPL NFT liquidity depth"},
+            )
+        )
+        assert data["routed_division"] == "XRPL : NFT Liquidity Ecosystem"
+
+    def test_task_and_division_echoed(self, client, monkeypatch):
+        monkeypatch.delenv("OPENAI_API_KEY", raising=False)
+        monkeypatch.delenv("GROK_API_KEY", raising=False)
         data = resp_json(
             client.post(
                 "/api/prometheus/execute",
@@ -420,6 +450,7 @@ class TestPrometheus:
         )
         assert data["task"] == "run analysis"
         assert data["division"] == "Quantum AI"
+        assert data["routed_division"] == "Quantum AI : Market Liquidity Engine"
 
     def test_status_is_ok(self, client):
         data = resp_json(
