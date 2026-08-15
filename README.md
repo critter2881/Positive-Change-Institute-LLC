@@ -77,14 +77,16 @@ Positive-Change-Institute-LLC/
 │   ├── wallet_registry.json      # Canonical wallet definitions
 │   └── divisions_registry.json   # Canonical division + product-ID map
 ├── arcana_enterprise_nfts/       # NFT collections and tier templates
-├── tests/                        # pytest suite (24 tests)
+├── tests/                        # pytest suite
+│   ├── test_arcana_nfts.py
 │   └── test_backend.py
 ├── docs/                         # Project documentation
 │   ├── API.md                    # REST API reference
 │   ├── ARCHITECTURE.md           # Architecture overview
-│   ├── SETUP.md                  # Setup and deployment guide
-│   └── CONTRIBUTING.md           # Contribution guidelines
-├── scripts/                      # Utility scripts
+│   ├── CONTRIBUTING.md           # Contribution guidelines
+│   ├── PCI_BRAND.md              # Brand and identity reference
+│   ├── README.md                 # Documentation index
+│   └── SETUP.md                  # Setup and deployment guide
 ├── .github/workflows/            # GitHub Actions CI/CD
 ├── .env.example                  # Environment variable reference
 ├── requirements.txt              # Python dependencies

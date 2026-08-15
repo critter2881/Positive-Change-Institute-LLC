@@ -72,13 +72,15 @@ Positive-Change-Institute-LLC/
 │   └── config/
 │       └── tier_templates.yaml
 ├── tests/                    # pytest suite
+│   ├── test_arcana_nfts.py
 │   └── test_backend.py
 ├── docs/                     # Project documentation
 │   ├── API.md
 │   ├── ARCHITECTURE.md
-│   ├── SETUP.md
-│   └── CONTRIBUTING.md
-├── scripts/                  # Utility scripts
+│   ├── CONTRIBUTING.md
+│   ├── PCI_BRAND.md
+│   ├── README.md
+│   └── SETUP.md
 ├── .github/workflows/        # GitHub Actions CI/CD
 ├── .env.example              # Environment variable reference
 ├── requirements.txt          # Python dependencies
