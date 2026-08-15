@@ -121,7 +121,7 @@ jobs:
           fi
           for f in "${config_files[@]}"; do
             echo "Validating $f ..."
-            python -c "import json; json.load(open('$f', encoding='utf-8'))"
+            python -m json.tool "$f" > /dev/null
           done
 
       - name: Run targeted pytest suite
