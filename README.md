@@ -20,7 +20,7 @@ Founded and led by **Christopher S. Rowland Sr.**, the Institute leverages propr
 
 This repository is maintained with a strong commitment to professionalism, operational integrity, and compliance-aware engineering practices.
 
-All products, services, workflows, and automation systems associated with this repository are intended to be developed, reviewed, and maintained in alignment with applicable legal, regulatory, contractual, and organizational requirements. This includes, where relevant, considerations related to the U.S. Clarity Act, enterprise governance, documentation standards, data handling, and system accountability.
+All products, services, workflows, and automation systems associated with this repository are intended to be developed, reviewed, and maintained in alignment with applicable legal, regulatory, contractual, and organizational requirements. This includes, where relevant, considerations related to the U.S. Clarity Act, enterprise governance, documentation standards, data handling, digital asset regulation, and system accountability.
 
 ### Principles
 - Compliance considerations are treated as a design requirement, not an afterthought.
@@ -45,6 +45,14 @@ This statement reflects the repository’s intended operating standard and gover
 ## Clarity Act
 
 This repository references the U.S. Clarity Act as part of its policy and documentation framework. Any enterprise automation, workflow organization, or compliance-related process in this repository should remain aligned with the Clarity Act where applicable.
+
+---
+
+## MiCA / International Crypto Compliance Reference
+
+This repository is maintained with awareness of international crypto-asset regulatory frameworks, including the EU Markets in Crypto-Assets Regulation (MiCA), where applicable. Any crypto-related products, services, tokenized systems, or automation workflows should be designed with attention to authorization requirements, governance, disclosure obligations, operational safeguards, prudential considerations, and ongoing compliance expectations.
+
+This reference is informational only and does not constitute legal advice. Final compliance determinations must be made by qualified legal and regulatory professionals based on the jurisdiction, asset structure, and product scope involved.
 
 ---
 
@@ -83,7 +91,8 @@ Positive-Change-Institute-LLC/
 │   ├── API.md                    # REST API reference
 │   ├── ARCHITECTURE.md           # Architecture overview
 │   ├── SETUP.md                  # Setup and deployment guide
-│   └── CONTRIBUTING.md           # Contribution guidelines
+│   ├── CONTRIBUTING.md           # Contribution guidelines
+│   └── WHITEPAPER.md             # Governance and compliance white paper
 ├── scripts/                      # Utility scripts
 ├── .github/workflows/            # GitHub Actions CI/CD
 ├── .env.example                  # Environment variable reference
@@ -134,6 +143,7 @@ ArcanaPass · Prometheus Orchestrator · Foundry Analytics · Linktree Gateway �
 | [docs/SETUP.md](docs/SETUP.md) | Setup and deployment |
 | [docs/CONTRIBUTING.md](docs/CONTRIBUTING.md) | Contribution guidelines |
 | [docs/README.md](docs/README.md) | Top-level documentation overview |
+| [docs/WHITEPAPER.md](docs/WHITEPAPER.md) | Governance, compliance, and enterprise operating posture |
 
 ---
 
