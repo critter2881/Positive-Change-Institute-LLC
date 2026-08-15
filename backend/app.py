@@ -552,18 +552,18 @@ def create_app(config: dict | None = None) -> Flask:
             ai_result, model_used = _call_openai(
                 task, division, context, openai_key, logger
             )
+            routed_division = division or "all"
         elif grok_key:
             ai_result, model_used = _call_grok(
                 task, division, context, grok_key, logger
             )
+            routed_division = division or "all"
         else:
             routed_division = _resolve_prometheus_division(
                 task, division, context, DIVISIONS
             )
             ai_result = _build_local_prometheus_result(task, routed_division)
             model_used = "local-router"
-        if openai_key or grok_key:
-            routed_division = division or "all"
 
         return jsonify(
             {
