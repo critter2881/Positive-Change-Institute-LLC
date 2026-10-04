@@ -12,7 +12,7 @@
 
 Positive Change Institute LLC develops fully automated, AAA-grade turnkey digital solutions including XRPL and Solana token economies, NFT ecosystems with auto-evolving dynamics, and cross-platform dApps — all designed to transform digital ecosystems into living, scalable businesses.
 
-Founded and led by **Christopher S. Rowland Sr.**, the Institute leverages proprietary AI pipelines combining GPT, Grok, and multi-intelligence architectures to orchestrate sophisticated, self-optimizing digital ecosystems.
+Founded and led by **the Founder**, the Institute leverages proprietary AI pipelines combining GPT, Grok, and multi-intelligence architectures to orchestrate sophisticated, self-optimizing digital ecosystems.
 
 ---
 

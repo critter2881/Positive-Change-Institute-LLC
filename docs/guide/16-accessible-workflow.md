@@ -1,6 +1,6 @@
 # Chapter 16 — An Accessible, Low-Effort Workflow
 
-This repository is set up so that the owner, Christopher S. Rowland Sr., can run and extend it with **as little typing and as little remembering as possible**. These are design requirements, and automated tests protect them.
+This repository is set up so that the owner, can run and extend it with **as little typing and as little remembering as possible**. These are design requirements, and automated tests protect them.
 
 ## Principles
 

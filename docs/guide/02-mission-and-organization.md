@@ -9,7 +9,7 @@ PCI's tagline: *where visionary strategy meets autonomous intelligence, shaping 
 3. **Auditability.** Every registry is a plain JSON file in source control.
 4. **Compliance by design.** See Chapter 10 and the [White Paper](../WHITEPAPER.md).
 
-Founder and leader: **Christopher S. Rowland Sr.** The full brand narrative is in [PCI_BRAND.md](../PCI_BRAND.md).
+Founder and leader: **the Founder** (the founder's personal name is intentionally not published) The full brand narrative is in [PCI_BRAND.md](../PCI_BRAND.md).
 
 ## Organizational structure
 
