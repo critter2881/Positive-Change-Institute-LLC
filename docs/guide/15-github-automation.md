@@ -52,4 +52,4 @@ Edit `.github/auto-assign.yml` and list GitHub usernames under `workers`. Only t
 These are repository-level files. To reuse them everywhere, create a public repository named `.github` under your account and put `ISSUE_TEMPLATE/`, `pull_request_template.md`, and workflow templates in it. Then copy `dependabot.yml`, `codeql.yml`, and `stale.yml` into each repository, or use GitHub's organization rulesets if you move the repositories to an organization.
 
 ## Where to go next
-[Chapter 14 — Glossary](14-glossary.md)
+[Chapter 14 — Glossary](14-glossary.md), then [Chapter 16 — An Accessible, Low-Effort Workflow](16-accessible-workflow.md)

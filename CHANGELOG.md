@@ -16,6 +16,8 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - `auto_task_sync.py` skips titles that already have an open issue.
 - `/api/defi/analysis` accepts `reserve0`, `reserve1`, `fee`, `volatility`.
 
+- **Accessible workflow**: `Makefile` short commands, `make status` summary, Codespaces dev container, plain issue form, and frontend accessibility baseline (skip link, focus, reduced motion, larger targets) with tests.
+
 ### Fixed
 - `arcana_enterprise_nfts/arcana_nfts.py` used JSON `true`/`false`, which made it unimportable as Python.
 
