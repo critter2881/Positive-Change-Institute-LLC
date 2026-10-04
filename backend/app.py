@@ -11,7 +11,6 @@ import re
 import sys
 from pathlib import Path
 
-import requests
 from flask import Flask, jsonify, request
 
 # ---------------------------------------------------------------------------
@@ -156,70 +155,6 @@ def _compute_tokenomics(
     }
 
 
-def _call_openai(
-    task: str, division: str, context: dict, api_key: str, logger: logging.Logger
-) -> tuple:
-    """Call the OpenAI Chat Completions API. Returns (result_str, model_name)."""
-    system = (
-        "You are Prometheus, the AI orchestrator for Positive Change Institute LLC. "
-        f"You are managing the '{division or 'all divisions'}' vertical. "
-        "Respond with actionable intelligence in 1-3 concise sentences."
-    )
-    payload = {
-        "model": "gpt-4o",
-        "messages": [
-            {"role": "system", "content": system},
-            {"role": "user", "content": task},
-        ],
-        "max_tokens": 256,
-    }
-    try:
-        resp = requests.post(
-            "https://api.openai.com/v1/chat/completions",
-            headers={"Authorization": "Bearer " + api_key},
-            json=payload,
-            timeout=20,
-        )
-        resp.raise_for_status()
-        content = resp.json()["choices"][0]["message"]["content"].strip()
-        return content, "gpt-4o"
-    except Exception as exc:
-        logger.error("OpenAI call failed: %s", exc)
-        return "AI routing is temporarily unavailable.", "gpt-4o"
-
-
-def _call_grok(
-    task: str, division: str, context: dict, api_key: str, logger: logging.Logger
-) -> tuple:
-    """Call the Grok Chat API. Returns (result_str, model_name)."""
-    system = (
-        "You are Prometheus, the AI orchestrator for Positive Change Institute LLC. "
-        f"You are managing the '{division or 'all divisions'}' vertical. "
-        "Respond with actionable intelligence in 1-3 concise sentences."
-    )
-    payload = {
-        "model": "grok-3",
-        "messages": [
-            {"role": "system", "content": system},
-            {"role": "user", "content": task},
-        ],
-        "max_tokens": 256,
-    }
-    try:
-        resp = requests.post(
-            "https://api.x.ai/v1/chat/completions",
-            headers={"Authorization": "Bearer " + api_key},
-            json=payload,
-            timeout=20,
-        )
-        resp.raise_for_status()
-        content = resp.json()["choices"][0]["message"]["content"].strip()
-        return content, "grok-3"
-    except Exception as exc:
-        logger.error("Grok call failed: %s", exc)
-        return "AI routing is temporarily unavailable.", "grok-3"
-
-
 # ---------------------------------------------------------------------------
 # Application factory
 # ---------------------------------------------------------------------------
@@ -233,6 +168,8 @@ def create_app(config: dict | None = None) -> Flask:
 
     from backend.services.defi_analysis import run_defi_analysis
     from backend.services.liquidity import get_all_liquidity
+    from backend.services.prometheus import execute as execute_task
+    from backend.services.prometheus import provider_keys
 
     app = Flask(__name__)
 
@@ -423,38 +360,32 @@ def create_app(config: dict | None = None) -> Flask:
         body = request.get_json(silent=True) or {}
         task = body.get("task", "").strip()
         division = body.get("division", "").strip()
-        context = body.get("context", {})
 
         if not task:
             return jsonify({"error": "Missing required field: 'task'"}), 400
 
-        openai_key = os.getenv("OPENAI_API_KEY", "")
-        grok_key = os.getenv("GROK_API_KEY", "")
-
-        if openai_key:
-            ai_result, model_used = _call_openai(
-                task, division, context, openai_key, logger
-            )
-        elif grok_key:
-            ai_result, model_used = _call_grok(
-                task, division, context, grok_key, logger
-            )
-        else:
-            ai_result = (
-                f"[DEMO] Prometheus would route '{task}' for division "
-                f"'{division or 'all'}' to the optimal intelligence layer. "
-                "Set OPENAI_API_KEY or GROK_API_KEY to enable live AI routing."
-            )
-            model_used = "demo"
+        cross_check = bool(body.get("cross_check", False))
+        outcome = execute_task(
+            task,
+            division,
+            provider_keys(os.getenv),
+            cross_check=cross_check,
+        )
 
         return jsonify(
             {
                 "task": task,
                 "division": division or "all",
-                "result": ai_result,
-                "model": model_used,
+                "result": outcome["result"],
+                "model": outcome["model"],
+                "mode": outcome["mode"],
                 "status": "ok",
                 "timestamp": _utcnow(),
+                **(
+                    {"cross_check": outcome["cross_check"]}
+                    if "cross_check" in outcome
+                    else {}
+                ),
             }
         )
 

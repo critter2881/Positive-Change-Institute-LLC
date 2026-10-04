@@ -66,6 +66,47 @@ _TRANSFER_FEE_BPS = 500
 
 
 # ---------------------------------------------------------------------------
+# Safeguards
+# ---------------------------------------------------------------------------
+DEFAULT_MAX_MINTS = 3
+MAINNET_CONFIRMATION = "MINT-ON-MAINNET"
+
+
+class SafeguardError(Exception):
+    """Raised when a minting safeguard blocks the run."""
+
+
+def check_safeguards(
+    mainnet: bool,
+    confirm: str | None,
+    allow_env: str | None,
+    target_count: int,
+    max_mints: int,
+) -> None:
+    """
+    Enforce minting limits before any transaction is built.
+
+    * A run may mint at most *max_mints* NFTs (default 3).
+    * Mainnet needs BOTH ``--confirm-mainnet MINT-ON-MAINNET`` and the
+      environment variable ``PCI_ALLOW_MAINNET=yes``.
+    """
+    if max_mints < 1:
+        raise SafeguardError("--max-mints must be at least 1")
+    if target_count > max_mints:
+        raise SafeguardError(
+            f"Refusing to mint {target_count} NFTs: exceeds cap of {max_mints}. "
+            "Raise --max-mints deliberately if this is intended."
+        )
+    if mainnet:
+        if confirm != MAINNET_CONFIRMATION:
+            raise SafeguardError(
+                f"Mainnet requires --confirm-mainnet {MAINNET_CONFIRMATION}"
+            )
+        if (allow_env or "").strip().lower() != "yes":
+            raise SafeguardError("Mainnet requires environment PCI_ALLOW_MAINNET=yes")
+
+
+# ---------------------------------------------------------------------------
 # Minting helpers
 # ---------------------------------------------------------------------------
 def _metadata_uri_hex(product_id: str) -> str:
@@ -122,8 +163,20 @@ def mint_single(wallet, client, nft_data: dict) -> dict:
     return result.result
 
 
+def select_targets(product_id: str | None = None) -> list:
+    """Return the catalog entries to mint."""
+    return (
+        [n for n in NFT_CATALOG if n["product_id"] == product_id]
+        if product_id
+        else list(NFT_CATALOG)
+    )
+
+
 def mint_catalog(
-    seed: str, network_url: str, product_id: str | None = None
+    seed: str,
+    network_url: str,
+    product_id: str | None = None,
+    dry_run: bool = False,
 ) -> None:
     """
     Mint the entire NFT catalog (or a single entry) on the given XRPL network.
@@ -131,15 +184,17 @@ def mint_catalog(
     from xrpl.clients import JsonRpcClient
     from xrpl.wallet import Wallet
 
-    targets = (
-        [n for n in NFT_CATALOG if n["product_id"] == product_id]
-        if product_id
-        else list(NFT_CATALOG)
-    )
+    targets = select_targets(product_id)
 
     if not targets:
         logger.error("No NFT found with product_id=%r", product_id)
         sys.exit(1)
+
+    if dry_run:
+        for nft_data in targets:
+            logger.info("[DRY RUN] would mint %s (%s)", nft_data["product_id"],
+                        nft_data["collection"])
+        return
 
     client = JsonRpcClient(network_url)
     wallet = Wallet.from_seed(seed)
@@ -194,10 +249,38 @@ def main() -> None:
         help="Mint a single NFT by product ID (e.g. FORGE-001). "
         "Omit to mint the entire catalog.",
     )
+    parser.add_argument(
+        "--max-mints",
+        type=int,
+        default=DEFAULT_MAX_MINTS,
+        help=f"Safety cap on NFTs minted per run (default {DEFAULT_MAX_MINTS}).",
+    )
+    parser.add_argument(
+        "--confirm-mainnet",
+        metavar="PHRASE",
+        help=f"Required with --mainnet: {MAINNET_CONFIRMATION}",
+    )
+    parser.add_argument(
+        "--dry-run",
+        action="store_true",
+        help="List what would be minted without submitting transactions.",
+    )
     args = parser.parse_args()
 
+    try:
+        check_safeguards(
+            args.mainnet,
+            args.confirm_mainnet,
+            os.environ.get("PCI_ALLOW_MAINNET"),
+            len(select_targets(args.product_id)),
+            args.max_mints,
+        )
+    except SafeguardError as exc:
+        logger.error("Safeguard: %s", exc)
+        sys.exit(2)
+
     seed = os.environ.get("XRPL_WALLET_SEED", "").strip()
-    if not seed:
+    if not seed and not args.dry_run:
         logger.error(
             "XRPL_WALLET_SEED environment variable is required. "
             "Export it before running this script — never hard-code it."
@@ -208,7 +291,7 @@ def main() -> None:
     network_label = "MAINNET \u26a0\ufe0f" if args.mainnet else "TESTNET"
     logger.info("Network: %s (%s)", network_label, network_url)
 
-    mint_catalog(seed, network_url, product_id=args.product_id)
+    mint_catalog(seed, network_url, product_id=args.product_id, dry_run=args.dry_run)
 
 
 if __name__ == "__main__":

@@ -17,9 +17,11 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
       # Patch and minor updates merge automatically once required checks pass.
-      # Major updates are left for human review.
+      # Major updates, and any PR labeled `hold`, are left for human review.
       - name: Enable auto-merge for patch and minor updates
-        if: steps.meta.outputs.update-type != 'version-update:semver-major'
+        if: >-
+          steps.meta.outputs.update-type != 'version-update:semver-major' &&
+          !contains(github.event.pull_request.labels.*.name, 'hold')
         run: gh pr merge --auto --squash "$PR_URL"
         env:
           PR_URL: ${{ github.event.pull_request.html_url }}
