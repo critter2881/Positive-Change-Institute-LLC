@@ -1,7 +1,7 @@
 {
   "name": "PCI (ready to use, no setup)",
   "image": "mcr.microsoft.com/devcontainers/python:3.11",
-  "postCreateCommand": "pip install -r requirements.txt && cp -n .env.example .env || true",
+  "postCreateCommand": "pip install -r requirements.txt && (cp -n .env.example .env || true)",
   "forwardPorts": [5000, 8000],
   "customizations": {
     "vscode": {
