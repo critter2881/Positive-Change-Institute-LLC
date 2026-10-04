@@ -42,7 +42,7 @@ APO describes itself through six questions:
 
 ## About the numbers
 
-APO's stat cards (for example, "99.997% metadata integrity", "12-layer doctrine", "14,000+ validator reach points") are **declarations in APO's own metadata**. This repository contains the descriptive content and server only; it does not include a validator network or a measurement harness. Treat these figures as product positioning until independently evidenced, and keep that distinction in any external communication (see Chapter 10).
+APO's stat cards (for example, "99.997% metadata integrity", "12-layer doctrine", "14,000+ validator reach points") are **declarations in APO's own metadata**. This repository contains the descriptive content and server only; it does not include a validator network. `make apo-measure` runs a local harness (`scripts/apo_measure.py`) that measures payload integrity and loopback latency only; it cannot measure reach points, satellite redundancy, or the "+480%" figure. Treat these figures as product positioning until independently evidenced, and keep that distinction in any external communication (see Chapter 10).
 
 ## Where to go next
 [Chapter 9 — Automation: Task Sync, Reports, and Frontend](09-automation-and-frontend.md)

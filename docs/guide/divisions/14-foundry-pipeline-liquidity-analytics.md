@@ -15,7 +15,7 @@
 
 Enterprise data pipeline and analytics suite delivering real-time liquidity visibility and forecasting.
 
-Product definitions below are **proposed**: they are derived from this description, the existing code, and the registry, and are pending confirmation by the division owner.
+Product definitions below were **confirmed by the owner on 2026-10-04**. They derive from this description, the existing code, and the registry. Amend them here when they change.
 
 ## What exists today
 
@@ -24,7 +24,7 @@ Product definitions below are **proposed**: they are derived from this descripti
 
 ## Product IDs
 
-| Product ID | Proposed definition |
+| Product ID | Definition |
 |------------|-----------|
 | `PCI_FND_001` | Enterprise data pipeline |
 | `PCI_FND_002` | Real-time liquidity analytics dashboard (`/api/real_time_liquidity`) |
@@ -33,7 +33,6 @@ Product definitions below are **proposed**: they are derived from this descripti
 ## Next steps
 
 - See the Auto-Foundry Pipeline items in `tasks.md`.
-- Owner to confirm or amend the proposed product definitions above.
 
 ## Related
 [Enterprise Divisions overview](../05-enterprise-divisions.md) · [Backend API](../06-backend-api.md) · [Roadmap](../13-roadmap.md)

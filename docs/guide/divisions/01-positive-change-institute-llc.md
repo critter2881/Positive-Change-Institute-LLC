@@ -15,7 +15,7 @@
 
 Positive Change Institute LLC is an innovation and systems architecture firm building automated, AI-driven, multi-platform digital ecosystems (see docs/PCI_BRAND.md).
 
-Product definitions below are **proposed**: they are derived from this description, the existing code, and the registry, and are pending confirmation by the division owner.
+Product definitions below were **confirmed by the owner on 2026-10-04**. They derive from this description, the existing code, and the registry. Amend them here when they change.
 
 ## What exists today
 
@@ -24,7 +24,7 @@ Product definitions below are **proposed**: they are derived from this descripti
 
 ## Product IDs
 
-| Product ID | Proposed definition |
+| Product ID | Definition |
 |------------|-----------|
 | `PCI_ORG_001` | Institutional profile: brand, mission, and filing-style records (`docs/PCI_BRAND.md`) |
 | `PCI_ORG_002` | Governance and compliance doctrine (`docs/WHITEPAPER.md`) |
@@ -33,7 +33,6 @@ Product definitions below are **proposed**: they are derived from this descripti
 ## Next steps
 
 - Define `PCI_ORG_001` to `PCI_ORG_003`.
-- Owner to confirm or amend the proposed product definitions above.
 
 ## Related
 [Enterprise Divisions overview](../05-enterprise-divisions.md) · [Backend API](../06-backend-api.md) · [Roadmap](../13-roadmap.md)

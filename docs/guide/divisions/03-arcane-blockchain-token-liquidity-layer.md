@@ -15,7 +15,7 @@
 
 Cross-chain token infrastructure built for deep liquidity and high-frequency settlement.
 
-Product definitions below are **proposed**: they are derived from this description, the existing code, and the registry, and are pending confirmation by the division owner.
+Product definitions below were **confirmed by the owner on 2026-10-04**. They derive from this description, the existing code, and the registry. Amend them here when they change.
 
 ## What exists today
 
@@ -24,7 +24,7 @@ Product definitions below are **proposed**: they are derived from this descripti
 
 ## Product IDs
 
-| Product ID | Proposed definition |
+| Product ID | Definition |
 |------------|-----------|
 | `PCI_BC_001` | Cross-chain token liquidity infrastructure |
 | `PCI_BC_002` | High-frequency settlement layer |
@@ -32,7 +32,6 @@ Product definitions below are **proposed**: they are derived from this descripti
 ## Next steps
 
 - Define `PCI_BC_001` and `PCI_BC_002`; configure chains and pools.
-- Owner to confirm or amend the proposed product definitions above.
 
 ## Related
 [Enterprise Divisions overview](../05-enterprise-divisions.md) · [Backend API](../06-backend-api.md) · [Roadmap](../13-roadmap.md)

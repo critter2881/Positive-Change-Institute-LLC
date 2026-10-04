@@ -15,7 +15,7 @@
 
 Risk management and compliance modules ensuring institutional-grade protection across all operations.
 
-Product definitions below are **proposed**: they are derived from this description, the existing code, and the registry, and are pending confirmation by the division owner.
+Product definitions below were **confirmed by the owner on 2026-10-04**. They derive from this description, the existing code, and the registry. Amend them here when they change.
 
 ## What exists today
 
@@ -24,7 +24,7 @@ Product definitions below are **proposed**: they are derived from this descripti
 
 ## Product IDs
 
-| Product ID | Proposed definition |
+| Product ID | Definition |
 |------------|-----------|
 | `PCI_PCC_001` | Risk management module |
 | `PCI_PCC_002` | Compliance screening (`/api/compliance/check`) |
@@ -33,7 +33,6 @@ Product definitions below are **proposed**: they are derived from this descripti
 ## Next steps
 
 - Define the three `PCI_PCC_*` products; extend beyond format and pattern screening.
-- Owner to confirm or amend the proposed product definitions above.
 
 ## Related
 [Enterprise Divisions overview](../05-enterprise-divisions.md) · [Backend API](../06-backend-api.md) · [Roadmap](../13-roadmap.md)

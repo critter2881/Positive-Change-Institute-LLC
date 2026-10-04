@@ -15,7 +15,7 @@
 
 Sovereign metadata oracle for multi-chain, multi-system integrity: one oracle, one law, one truth (from apo/apo.py META).
 
-Product definitions below are **proposed**: they are derived from this description, the existing code, and the registry, and are pending confirmation by the division owner.
+Product definitions below were **confirmed by the owner on 2026-10-04**. They derive from this description, the existing code, and the registry. Amend them here when they change.
 
 ## What exists today
 
@@ -24,7 +24,7 @@ Product definitions below are **proposed**: they are derived from this descripti
 
 ## Product IDs
 
-| Product ID | Proposed definition |
+| Product ID | Definition |
 |------------|-----------|
 | `PCI_APO_001` | APO core whitepaper |
 | `PCI_APO_002` | APO technical whitepaper |
@@ -37,7 +37,6 @@ Product definitions below are **proposed**: they are derived from this descripti
 ## Next steps
 
 - Map the seven `PCI_APO_*` IDs to the seven whitepapers; add evidence for headline figures.
-- Owner to confirm or amend the proposed product definitions above.
 
 ## Related
 [Enterprise Divisions overview](../05-enterprise-divisions.md) · [Backend API](../06-backend-api.md) · [Roadmap](../13-roadmap.md)

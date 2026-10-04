@@ -15,7 +15,7 @@
 
 Superintelligence-powered orchestration layer coordinating cross-division liquidity flows in real time.
 
-Product definitions below are **proposed**: they are derived from this description, the existing code, and the registry, and are pending confirmation by the division owner.
+Product definitions below were **confirmed by the owner on 2026-10-04**. They derive from this description, the existing code, and the registry. Amend them here when they change.
 
 ## What exists today
 
@@ -24,7 +24,7 @@ Product definitions below are **proposed**: they are derived from this descripti
 
 ## Product IDs
 
-| Product ID | Proposed definition |
+| Product ID | Definition |
 |------------|-----------|
 | `PCI_PROM_001` | Prometheus task router (`/api/prometheus/execute`: OpenAI, Grok, or demo mode) |
 | `PCI_PROM_002` | Cross-division liquidity flow coordinator |
@@ -32,7 +32,6 @@ Product definitions below are **proposed**: they are derived from this descripti
 ## Next steps
 
 - Define the two product IDs; see the Prometheus AI items in `tasks.md`.
-- Owner to confirm or amend the proposed product definitions above.
 
 ## Related
 [Enterprise Divisions overview](../05-enterprise-divisions.md) · [Backend API](../06-backend-api.md) · [Roadmap](../13-roadmap.md)

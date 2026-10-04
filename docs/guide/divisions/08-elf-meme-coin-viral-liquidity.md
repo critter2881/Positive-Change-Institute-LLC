@@ -15,7 +15,7 @@
 
 Culturally resonant meme-economy assets engineered for viral growth and deep liquidity pools.
 
-Product definitions below are **proposed**: they are derived from this description, the existing code, and the registry, and are pending confirmation by the division owner.
+Product definitions below were **confirmed by the owner on 2026-10-04**. They derive from this description, the existing code, and the registry. Amend them here when they change.
 
 ## What exists today
 
@@ -24,7 +24,7 @@ Product definitions below are **proposed**: they are derived from this descripti
 
 ## Product IDs
 
-| Product ID | Proposed definition |
+| Product ID | Definition |
 |------------|-----------|
 | `PCI_ELF_001` | Meme-economy asset definition and branding |
 | `PCI_ELF_002` | Viral growth and community campaign tooling |
@@ -33,7 +33,6 @@ Product definitions below are **proposed**: they are derived from this descripti
 ## Next steps
 
 - Product definition and implementation needed.
-- Owner to confirm or amend the proposed product definitions above.
 
 ## Related
 [Enterprise Divisions overview](../05-enterprise-divisions.md) · [Backend API](../06-backend-api.md) · [Roadmap](../13-roadmap.md)

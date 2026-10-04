@@ -8,6 +8,7 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ## [Unreleased]
 
 ### Added
+- `scripts/apo_measure.py` (`make apo-measure`): APO integrity and latency measurement with stated limits; product definitions confirmed.
 - **Prometheus router** (`backend/services/prometheus.py`): ordered OpenAI/Grok fallback, bounded retries, optional cross-check with agreement score, and a structured audit log.
 - **Minting safeguards**: per-run cap, double-confirmed mainnet, and `--dry-run`.
 - **Auto-evolution engine**, `GET /api/nft/collections/<id>/evolve`, and weekly-rotating quant verification (`scripts/quant_verify.py`).

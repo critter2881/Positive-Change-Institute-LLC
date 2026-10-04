@@ -15,7 +15,7 @@
 
 Autonomous AI pipelines driving real-time market intelligence and liquidity optimization at scale.
 
-Product definitions below are **proposed**: they are derived from this description, the existing code, and the registry, and are pending confirmation by the division owner.
+Product definitions below were **confirmed by the owner on 2026-10-04**. They derive from this description, the existing code, and the registry. Amend them here when they change.
 
 ## What exists today
 
@@ -24,7 +24,7 @@ Product definitions below are **proposed**: they are derived from this descripti
 
 ## Product IDs
 
-| Product ID | Proposed definition |
+| Product ID | Definition |
 |------------|-----------|
 | `PCI_AI_001` | Real-time market intelligence pipeline |
 | `PCI_AI_002` | Liquidity optimization engine (builds on `/api/defi/analysis`) |
@@ -33,7 +33,6 @@ Product definitions below are **proposed**: they are derived from this descripti
 ## Next steps
 
 - Feed the analysis with live pool data instead of fixed sample inputs.
-- Owner to confirm or amend the proposed product definitions above.
 
 ## Related
 [Enterprise Divisions overview](../05-enterprise-divisions.md) · [Backend API](../06-backend-api.md) · [Roadmap](../13-roadmap.md)

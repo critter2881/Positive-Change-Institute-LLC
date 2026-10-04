@@ -15,6 +15,9 @@ check:     ## Lint + all tests (same as CI)
 
 verify:    ## Quant verification (math checks on the models)
 	$(PY) scripts/quant_verify.py
+apo-measure: ## Measure APO integrity and latency (local, honest limits)
+	$(PY) scripts/apo_measure.py
+
 
 run:       ## Start the API on http://127.0.0.1:5000
 	$(PY) backend/app.py
