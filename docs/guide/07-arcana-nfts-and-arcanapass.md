@@ -39,11 +39,22 @@ XRPL_WALLET_SEED=<seed> python arcana_enterprise_nfts/mint.py --mainnet
 
 Each mint is an XRPL `NFTokenMint` with taxon `0`, the *transferable* flag, a **5% transfer fee** (500 basis points), a metadata URI derived from the product ID, and a JSON memo (collection, tier, product ID, copyright).
 
-### Minting safety rules
-1. The seed comes from `XRPL_WALLET_SEED` only and is never committed or logged.
-2. Always rehearse on testnet first.
-3. Mainnet requires the explicit `--mainnet` flag.
-4. Review `--product-id` targeting before a catalog-wide mint, since mints are not reversible.
+### Minting safeguards (enforced in code)
+
+| Safeguard | Behavior |
+|-----------|----------|
+| Mint cap | A run may mint at most `--max-mints` NFTs (default 3). Exceeding it exits with code 2. |
+| Mainnet double confirmation | `--mainnet` also needs `--confirm-mainnet MINT-ON-MAINNET` **and** the environment variable `PCI_ALLOW_MAINNET=yes`. |
+| Dry run | `--dry-run` lists what would be minted without a seed or any transaction. |
+| Seed handling | `XRPL_WALLET_SEED` is read only from the environment and never logged. |
+
+```bash
+python arcana_enterprise_nfts/mint.py --dry-run
+PCI_ALLOW_MAINNET=yes XRPL_WALLET_SEED=<seed> python arcana_enterprise_nfts/mint.py \
+  --mainnet --confirm-mainnet MINT-ON-MAINNET --product-id FORGE-001
+```
+
+Always rehearse on testnet first. Mints are not reversible.
 
 ## Where to go next
 [Chapter 8 — Prometheus and the Aegis Prometheus Oracle (APO)](08-prometheus-and-apo.md)

@@ -36,14 +36,16 @@ Every non-2xx response is JSON with an `error` key. `400`, `404`, and `500` have
 
 ## Prometheus orchestration
 
-`POST /api/prometheus/execute` accepts `{"task": "...", "division": "...", "context": {}}`.
+`POST /api/prometheus/execute` accepts `{"task": "...", "division": "...", "cross_check": false}`. The logic is in `backend/services/prometheus.py`.
 
 - `task` is required, otherwise `400`.
-- If `OPENAI_API_KEY` is set, the task goes to OpenAI.
-- Otherwise, if `GROK_API_KEY` is set, it goes to Grok.
-- Otherwise the endpoint runs in **demo mode** and returns a `[DEMO]` message with `model: "demo"`. This makes local development and tests free of external calls.
+- **Ordered fallback:** OpenAI is tried first (if `OPENAI_API_KEY` is set), then Grok (`GROK_API_KEY`). The first provider that answers wins.
+- **Retries:** each provider gets up to 3 attempts with exponential backoff on timeouts, connection errors, `429` and `5xx`. Other client errors (such as a bad key) are not retried.
+- **Cross-check mode** (`"cross_check": true`): every configured provider is asked and the answers are compared by word overlap. The response includes `cross_check.agreement` (0–1) and `needs_review`, which is `true` when agreement is below 0.3 or only one provider answered. This flags disagreement for a human. It does not prove either answer is correct.
+- **Demo mode:** with no keys the endpoint returns a `[DEMO]` message and `model: "demo"`, so local work and tests make no external calls.
+- **Audit log:** every routing decision writes one JSON line to the `prometheus.audit` logger (division, mode, model, per-provider attempts, elapsed time, task length). It never records keys or task text.
 
-The response always includes `task`, `division` (defaulting to `all`), `result`, `model`, `status`, and `timestamp`.
+The response contains `task`, `division`, `result`, `model`, `mode` (`primary`, `fallback`, `cross_check`, `failed`, or `demo`), `status`, `timestamp`, and `cross_check` when requested. If every provider fails, `result` says AI routing is unavailable and `mode` is `failed`.
 
 ## Liquidity service
 

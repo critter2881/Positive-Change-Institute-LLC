@@ -12,7 +12,7 @@ Automation that keeps this repository healthy without manual effort. Everything 
 | Release drafter | `workflows/release-drafter.yml`, `release-drafter.yml` | Drafts release notes from merged PRs, grouped by label | Push to `main` |
 | Task sync | `auto_task_sync.py` | Creates GitHub Issues from a manifest, skipping duplicates | Manual run |
 | NFT autogen, project board | `workflows/arcana_nft_autogen.yml`, `workflows/sync_to_project_board.yaml` | Existing workflows | See each file |
-| Auto-update merge | `workflows/dependabot-auto-merge.yml` | Auto-merges Dependabot patch and minor updates once required checks pass. Major updates wait for a human. | Dependabot PRs |
+| Auto-update merge | `workflows/dependabot-auto-merge.yml` | Auto-merges Dependabot patch and minor updates once required checks pass. Major updates, and any PR labeled `hold`, wait for a human. | Dependabot PRs |
 | Quant verification | `workflows/quant-verify.yml`, `scripts/quant_verify.py` | Checks model invariants (tokenomics, AMM, resilience, NFT evolution). The random seed **rotates weekly** and a failing seed can be replayed. | Weekly, on model changes, manual |
 | Auto-assign | `workflows/auto-assign.yml`, `auto-assign.yml`, `CODEOWNERS` | Assigns each new issue and PR to the next worker in the pool (round-robin by number). CODEOWNERS adds the right reviewer by path. | Issue or PR opened |
 | PR template | `pull_request_template.md` | Standard checklist on every PR | PR opened |
@@ -26,6 +26,12 @@ Automation that keeps this repository healthy without manual effort. Everything 
 ## Assigning workers
 
 Edit `.github/auto-assign.yml` and list GitHub usernames under `workers`. Only the owner is listed now, since collaborators are not known to this repository. Items that already have an assignee, and bot-authored items, are left alone. Assignees must have access to the repository, or GitHub ignores the assignment.
+
+## Safeguards summary
+
+- **Dependency auto-merge:** patch and minor only, never when labeled `hold`, and only after required checks pass.
+- **Minting:** capped per run, mainnet needs two explicit confirmations (Chapter 7).
+- **AI routing:** retries are bounded, failures degrade gracefully, and low-agreement cross-checks are flagged for review (Chapter 6).
 
 ## Safety notes
 

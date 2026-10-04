@@ -5,6 +5,20 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [Unreleased]
+
+### Added
+- **Prometheus router** (`backend/services/prometheus.py`): ordered OpenAI/Grok fallback, bounded retries, optional cross-check with agreement score, and a structured audit log.
+- **Minting safeguards**: per-run cap, double-confirmed mainnet, and `--dry-run`.
+- **Auto-evolution engine**, `GET /api/nft/collections/<id>/evolve`, and weekly-rotating quant verification (`scripts/quant_verify.py`).
+- **GitHub automation**: Dependabot, CodeQL, PR labeler, stale cleanup, release drafter, auto-assign, Dependabot auto-merge, PR template.
+- **Guide** (`docs/guide/`) and 16 division profiles.
+- `auto_task_sync.py` skips titles that already have an open issue.
+- `/api/defi/analysis` accepts `reserve0`, `reserve1`, `fee`, `volatility`.
+
+### Fixed
+- `arcana_enterprise_nfts/arcana_nfts.py` used JSON `true`/`false`, which made it unimportable as Python.
+
 ## [2.0.0] - 2026-08-03
 
 ### Added
