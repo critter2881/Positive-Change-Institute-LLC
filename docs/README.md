@@ -27,6 +27,10 @@ Each part builds on the one before it, but any chapter can also be read on its o
 15. [GitHub Automation](guide/15-github-automation.md): CI, security, dependencies, labeling, releases.
 16. [An Accessible, Low-Effort Workflow](guide/16-accessible-workflow.md): short commands, no-setup environment, and status at a glance.
 
+## Doctrine and repositories
+- [Doctrine Archive](doctrine/README.md): the consolidated doctrine repositories.
+- [All repositories](../README.md#repositories): the map of every repository.
+
 ## Reference documents
 - [Brand & Mission](PCI_BRAND.md) · [White Paper](WHITEPAPER.md) · [Architecture](ARCHITECTURE.md)
 - [API Reference](API.md) · [Setup](SETUP.md) · [Contributing](CONTRIBUTING.md)

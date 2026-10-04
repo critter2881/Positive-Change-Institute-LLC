@@ -148,6 +148,20 @@ ArcanaPass · Prometheus Orchestrator · Foundry Analytics · Linktree Gateway �
 
 ---
 
+## Repositories
+
+This repository is the hub. Everything else is listed here so there is one map.
+
+| Repository | Role | Status |
+|------------|------|--------|
+| **Positive-Change-Institute-LLC** (this repo) | System of record: code, docs, guide, automation | Active |
+| [positive-change-showcase](https://github.com/Positive-Change-Institute-LLC/positive-change-showcase) | Public product catalogue and waitlist (sales via Whop) | Active, separate by design |
+| [monad-relay](https://github.com/critter2881/monad-relay) | On-chain incentive engine with Solidity contracts | Separate codebase |
+| [resilience-os](https://github.com/critter2881/resilience-os) | Daily stability system for a counseling product | Separate product |
+| prometheus-pci-core-, prometheus-runtime-codex, arculus-dominion-engine, aurelian-overmind-omega | Doctrine and storefront generator | Consolidated into [docs/doctrine](docs/doctrine/README.md); safe to archive |
+
+---
+
 ## Documentation
 
 New here? Read the guide in order: [**The Positive Change Institute Guide**](docs/README.md).

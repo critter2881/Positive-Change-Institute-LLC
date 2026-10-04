@@ -18,6 +18,8 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 - **Accessible workflow**: `Makefile` short commands, `make status` summary, Codespaces dev container, plain issue form, and frontend accessibility baseline (skip link, focus, reduced motion, larger targets) with tests.
 
+- **Doctrine Archive** (`docs/doctrine/`) consolidating four doctrine repositories, and a repository map in the README.
+
 ### Fixed
 - `arcana_enterprise_nfts/arcana_nfts.py` used JSON `true`/`false`, which made it unimportable as Python.
 

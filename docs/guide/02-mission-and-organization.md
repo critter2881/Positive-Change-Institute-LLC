@@ -24,5 +24,9 @@ This repository is the system of record. The rules are:
 - Work in progress is tracked in `tasks.md`, and history in `CHANGELOG.md`.
 - Placeholder or abandoned artifacts are removed or consolidated.
 
+## Related repositories
+
+This repository is the hub. The doctrine repositories are consolidated in [docs/doctrine](../doctrine/README.md), and the other repositories are mapped in the [README](../../README.md#repositories).
+
 ## Where to go next
 [Chapter 3 — A Map of the Repository](03-repository-map.md)
