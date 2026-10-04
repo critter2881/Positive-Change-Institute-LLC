@@ -56,6 +56,18 @@ python -m pytest tests/ -v
 
 ---
 
+## Source of Truth
+
+This repository is the single system of record for PCI and Prometheus. Where each part lives:
+
+| Area | Location |
+|------|----------|
+| PCI backend, frontend, divisions | `backend/`, `frontend/`, `config/divisions_registry.json` |
+| Prometheus-related automation | `apo/`, `auto_task_sync.py` |
+| Arcana NFTs | `arcana_enterprise_nfts/` |
+| Governance | `docs/WHITEPAPER.md` |
+| Tasks and changes | `tasks.md`, `CHANGELOG.md` |
+
 ## Repository Structure
 
 ```
