@@ -400,6 +400,22 @@ def create_app(config: dict | None = None) -> Flask:
             return jsonify({"error": f"Unknown NFT product_id: '{product_id}'"}), 404
         return jsonify(entry)
 
+    @app.route("/api/nft/collections/<product_id>/evolve", methods=["GET"])
+    def nft_evolve(product_id: str):
+        """Return the evolution state of an NFT for an activity ``score``."""
+        from arcana_enterprise_nfts.evolution.engine import evolve
+
+        entry = next(
+            (n for n in nft_catalog if n.get("product_id") == product_id), None
+        )
+        if entry is None:
+            return jsonify({"error": f"Unknown NFT product_id: '{product_id}'"}), 404
+        try:
+            score = float(request.args.get("score", 0))
+            return jsonify(evolve(entry, score))
+        except ValueError:
+            return jsonify({"error": "score must be a non-negative number"}), 400
+
     # ---- Prometheus AI Orchestrator ----------------------------------------
     @app.route("/api/prometheus/execute", methods=["POST"])
     def prometheus_execute():

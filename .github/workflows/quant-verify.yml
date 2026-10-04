@@ -1,0 +1,41 @@
+name: Quant verification (auto-rotating)
+
+on:
+  schedule:
+    - cron: "0 4 * * 1"   # weekly; the random seed rotates with the ISO week
+  push:
+    branches: [ main ]
+    paths:
+      - "backend/**"
+      - "arcana_enterprise_nfts/**"
+      - "scripts/quant_verify.py"
+  workflow_dispatch:
+    inputs:
+      seed:
+        description: "Replay a specific seed (optional)"
+        required: false
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install -r requirements.txt
+      - name: Run quant verification
+        run: |
+          if [ -n "${{ github.event.inputs.seed }}" ]; then
+            python scripts/quant_verify.py --seed "${{ github.event.inputs.seed }}"
+          else
+            python scripts/quant_verify.py
+          fi
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: quant-verification
+          path: reports/quant_verification.json

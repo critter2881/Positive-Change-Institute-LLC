@@ -8,7 +8,7 @@ arcana_nfts = [
         "product_id": "FORGE-001",
         "one_time_price_usd": 999,
         "subscription_tiers": {"builder": 9, "studio": 99},
-        "auto_evolution": true,
+        "auto_evolution": True,
         "ai_powered": "Prometheus Superintelligence®",
         "enterprise_utility": [
             "Dashboard integration",
@@ -16,7 +16,7 @@ arcana_nfts = [
             "Custom branding",
             "Predictive analytics hooks"
         ],
-        "story_integration": true,
+        "story_integration": True,
         "rarity": "adaptive",
         "diversification": [
             "Procedurally generated traits",
@@ -43,7 +43,7 @@ arcana_nfts = [
         "product_id": "RELICS-001",
         "one_time_price_usd": 4999,
         "subscription_tiers": {"starter": 199, "enterprise": 1499},
-        "auto_evolution": true,
+        "auto_evolution": True,
         "ai_powered": "Prometheus Superintelligence®",
         "enterprise_utility": [
             "Governance access",
@@ -51,7 +51,7 @@ arcana_nfts = [
             "Event-driven perks",
             "Automated compliance tools"
         ],
-        "story_integration": true,
+        "story_integration": True,
         "rarity": "ultra-limited",
         "diversification": [
             "Unique mythic artifacts",
@@ -78,7 +78,7 @@ arcana_nfts = [
         "product_id": "ASCEND-001",
         "one_time_price_usd": 9999,
         "subscription_tiers": {"premium": 499, "elite": 2499},
-        "auto_evolution": true,
+        "auto_evolution": True,
         "ai_powered": "Prometheus Superintelligence®",
         "enterprise_utility": [
             "Corporate influence",
@@ -86,7 +86,7 @@ arcana_nfts = [
             "Cinematic presentation integration",
             "Strategic decision impact"
         ],
-        "story_integration": true,
+        "story_integration": True,
         "rarity": "ultra-rare",
         "diversification": [
             "Legendary original concepts",
