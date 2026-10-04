@@ -40,6 +40,15 @@ def test_quant_verification_passes_and_is_reproducible():
     assert first == verify(seed=1, samples=50)
 
 
+@pytest.fixture
+def client():
+    from backend.app import create_app
+
+    app = create_app({"NFT_CATALOG": arcana_nfts})
+    app.config["TESTING"] = True
+    return app.test_client()
+
+
 def test_evolve_endpoint(client):
     data = client.get("/api/nft/collections/FORGE-001/evolve?score=150").get_json()
     assert data["level"] == 2

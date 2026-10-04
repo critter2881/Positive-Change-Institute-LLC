@@ -1,0 +1,7 @@
+# Code owners are requested for review automatically on matching PRs.
+*                          @critter2881
+/backend/                  @critter2881
+/arcana_enterprise_nfts/   @critter2881
+/apo/                      @critter2881
+/docs/                     @critter2881
+/.github/                  @critter2881

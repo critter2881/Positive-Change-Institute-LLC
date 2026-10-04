@@ -14,6 +14,7 @@ Automation that keeps this repository healthy without manual effort. Everything 
 | NFT autogen, project board | `workflows/arcana_nft_autogen.yml`, `workflows/sync_to_project_board.yaml` | Existing workflows | See each file |
 | Auto-update merge | `workflows/dependabot-auto-merge.yml` | Auto-merges Dependabot patch and minor updates once required checks pass. Major updates wait for a human. | Dependabot PRs |
 | Quant verification | `workflows/quant-verify.yml`, `scripts/quant_verify.py` | Checks model invariants (tokenomics, AMM, resilience, NFT evolution). The random seed **rotates weekly** and a failing seed can be replayed. | Weekly, on model changes, manual |
+| Auto-assign | `workflows/auto-assign.yml`, `auto-assign.yml`, `CODEOWNERS` | Assigns each new issue and PR to the next worker in the pool (round-robin by number). CODEOWNERS adds the right reviewer by path. | Issue or PR opened |
 | PR template | `pull_request_template.md` | Standard checklist on every PR | PR opened |
 
 ## Auto-evolution and auto-rotation
@@ -21,6 +22,10 @@ Automation that keeps this repository healthy without manual effort. Everything 
 - **Auto-evolution:** `arcana_enterprise_nfts/evolution/engine.py` computes an NFT's level and traits from an activity score (thresholds 0, 100, 500). It is deterministic, and exposed at `GET /api/nft/collections/<product_id>/evolve?score=`.
 - **Auto-rotation:** the quant check's seed changes every ISO week, so each scheduled run tests different inputs while staying reproducible (`--seed N`). Dependency updates rotate in daily through Dependabot.
 - **"Quant verified" means** these invariants hold: circulating supply never exceeds supply, FDV is at least market cap, vesting is monotonic and ends at 100%, price impact is monotonic within [0, 1), the resilience score is within 0–100, and NFT evolution never regresses as the score rises. It is a self-consistency check of PCI's models, not an external audit or market validation.
+
+## Assigning workers
+
+Edit `.github/auto-assign.yml` and list GitHub usernames under `workers`. Only the owner is listed now, since collaborators are not known to this repository. Items that already have an assignee, and bot-authored items, are left alone. Assignees must have access to the repository, or GitHub ignores the assignment.
 
 ## Safety notes
 

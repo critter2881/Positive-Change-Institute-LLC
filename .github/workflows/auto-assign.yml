@@ -1,0 +1,35 @@
+name: Auto-assign workers
+
+on:
+  issues:
+    types: [opened, reopened]
+  pull_request_target:
+    types: [opened, ready_for_review]
+
+permissions:
+  contents: read
+  issues: write
+  pull-requests: write
+
+jobs:
+  assign:
+    runs-on: ubuntu-latest
+    steps:
+      # Reads config from the base branch only; PR code is never checked out.
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.repository.default_branch }}
+      - name: Assign next worker (round-robin by item number)
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const cfg = fs.readFileSync('.github/auto-assign.yml', 'utf8');
+            const workers = [...cfg.matchAll(/^\s+-\s+([A-Za-z0-9-]+)\s*$/gm)].map(m => m[1]);
+            const item = context.payload.issue || context.payload.pull_request;
+            if (!workers.length || item.assignees.length || item.user.type === 'Bot') return;
+            const worker = workers[item.number % workers.length];
+            await github.rest.issues.addAssignees({
+              owner: context.repo.owner, repo: context.repo.repo,
+              issue_number: item.number, assignees: [worker],
+            });

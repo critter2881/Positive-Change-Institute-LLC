@@ -1,0 +1,7 @@
+# Workers are assigned from this pool. Add collaborators' GitHub usernames to
+# `workers` to spread work across more people; assignment rotates round-robin.
+workers:
+  - critter2881
+# Issues are assigned to the next worker. Set to 0 to skip PR assignment.
+assignees_per_issue: 1
+assignees_per_pr: 1
