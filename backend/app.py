@@ -318,8 +318,13 @@ def create_app(config: dict | None = None) -> Flask:
                 if key in request.args
             }
             return jsonify(run_defi_analysis(**kwargs))
-        except ValueError as exc:
-            return jsonify({"error": str(exc)}), 400
+        except ValueError:
+            return jsonify(
+                {
+                    "error": "Invalid parameters: reserve0 and reserve1 must be "
+                    "positive, fee in [0, 1), volatility non-negative, all numeric"
+                }
+            ), 400
 
     # ---- NFT Collections ---------------------------------------------------
     @app.route("/api/nft/collections", methods=["GET"])
