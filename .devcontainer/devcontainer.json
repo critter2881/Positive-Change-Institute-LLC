@@ -1,0 +1,19 @@
+{
+  "name": "PCI (ready to use, no setup)",
+  "image": "mcr.microsoft.com/devcontainers/python:3.11",
+  "postCreateCommand": "pip install -r requirements.txt && cp -n .env.example .env || true",
+  "forwardPorts": [5000, 8000],
+  "customizations": {
+    "vscode": {
+      "extensions": ["ms-python.python", "GitHub.copilot"],
+      "settings": {
+        "editor.formatOnSave": true,
+        "editor.fontSize": 16,
+        "editor.accessibilitySupport": "auto",
+        "files.autoSave": "afterDelay",
+        "files.autoSaveDelay": 1000,
+        "workbench.editor.enablePreview": false
+      }
+    }
+  }
+}

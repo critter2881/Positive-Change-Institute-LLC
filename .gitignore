@@ -39,3 +39,4 @@ coverage.xml
 
 # Generated outputs (committed intentionally via workflow)
 # arcana_enterprise_nfts/arcana_nfts.json
+reports/quant_verification.json

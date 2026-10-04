@@ -1,0 +1,30 @@
+name: Task (pick, don't type)
+description: Request work with dropdowns and short answers. Copilot or a worker is assigned automatically.
+labels: []
+body:
+  - type: dropdown
+    id: area
+    attributes:
+      label: Which area?
+      options: [Backend API, Frontend, Documentation, Arcana NFTs, Prometheus / APO, Automation, Division content]
+    validations: {required: true}
+  - type: dropdown
+    id: kind
+    attributes:
+      label: What kind of work?
+      options: [Build something new, Fix something broken, Improve something, Write documentation, Verify / test]
+    validations: {required: true}
+  - type: textarea
+    id: what
+    attributes:
+      label: What should happen? (voice dictation is fine; rough notes are OK)
+    validations: {required: true}
+  - type: checkboxes
+    id: verify
+    attributes:
+      label: Done means
+      options:
+        - label: "`make check` passes"
+          required: true
+        - label: "`make verify` passes (quant verification)"
+        - label: Docs updated
