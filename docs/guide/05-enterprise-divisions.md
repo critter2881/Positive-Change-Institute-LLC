@@ -38,5 +38,7 @@ The registry defines 16 entries. Product IDs below come directly from `config/di
 
 The last row matters: some divisions are **registered and tracked**, but their products are not yet built. The roadmap in Chapter 13 treats this as the main growth area.
 
+Full profiles for every division are in [Division Profiles](divisions/README.md).
+
 ## Where to go next
 [Chapter 6 — The Backend API](06-backend-api.md)

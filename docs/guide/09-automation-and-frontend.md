@@ -21,7 +21,7 @@ Behavior worth knowing:
 - Each manifest project provides `name`, `type`, optional `repo`, and `stats`. The issue body contains the task type and the stats as JSON.
 - If a project's `repo` differs from `GITHUB_REPO`, it logs a **warning** before creating the issue. Check that this is intentional.
 - Failures on one project are logged and do not stop the others.
-- It does **not** de-duplicate. Running it twice creates duplicate issues.
+- It skips any project whose title matches an existing **open** issue, so re-running is safe. Closed issues are not checked.
 - No token is hard-coded. A previous hard-coded token was removed (see the 2.0.0 changelog).
 
 ## `tasks.md`

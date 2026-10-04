@@ -47,13 +47,53 @@ def _validate_config() -> None:
         sys.exit(1)
 
 
-def create_task(name: str, task_type: str, repo: str, stats: dict) -> None:
-    """Create a GitHub Issue for the given project entry."""
-    url = f"{GITHUB_API_URL}/repos/{repo}/issues"
-    headers = {
+def _headers() -> dict:
+    return {
         "Authorization": f"token {GITHUB_TOKEN}",
         "Accept": "application/vnd.github+json",
     }
+
+
+def issue_exists(title: str, repo: str) -> bool:
+    """Return True if an open issue with exactly this title already exists.
+
+    On lookup failure this returns False so a transient error never blocks
+    task creation.
+    """
+    url = f"{GITHUB_API_URL}/repos/{repo}/issues"
+    page = 1
+    try:
+        while True:
+            response = requests.get(
+                url,
+                headers=_headers(),
+                params={"state": "open", "per_page": 100, "page": page},
+                timeout=15,
+            )
+            if response.status_code != 200:
+                logger.warning(
+                    "Could not list issues in %s: HTTP %d", repo, response.status_code
+                )
+                return False
+            issues = response.json()
+            for issue in issues:
+                if "pull_request" not in issue and issue.get("title") == title:
+                    return True
+            if len(issues) < 100:
+                return False
+            page += 1
+    except (requests.RequestException, ValueError) as exc:
+        logger.warning("Issue lookup failed for %s: %s", repo, exc)
+        return False
+
+
+def create_task(name: str, task_type: str, repo: str, stats: dict) -> None:
+    """Create a GitHub Issue for the given project entry (skips duplicates)."""
+    if issue_exists(name, repo):
+        logger.info("Skipping '%s' in %s: open issue already exists", name, repo)
+        return
+    url = f"{GITHUB_API_URL}/repos/{repo}/issues"
+    headers = _headers()
     stats_json = json.dumps(stats, indent=2)
     payload = {
         "title": name,

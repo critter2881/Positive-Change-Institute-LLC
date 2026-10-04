@@ -28,6 +28,7 @@ Each part builds on the one before it, but any chapter can also be read on its o
 ## Reference documents
 - [Brand & Mission](PCI_BRAND.md) · [White Paper](WHITEPAPER.md) · [Architecture](ARCHITECTURE.md)
 - [API Reference](API.md) · [Setup](SETUP.md) · [Contributing](CONTRIBUTING.md)
+- [Division Profiles](guide/divisions/README.md)
 - [Tasks](../tasks.md) · [Changelog](../CHANGELOG.md)
 
 ## Notes
