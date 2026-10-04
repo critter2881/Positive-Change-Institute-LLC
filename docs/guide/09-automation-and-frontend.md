@@ -16,6 +16,7 @@ GITHUB_TOKEN=<token> GITHUB_REPO=<owner/repo> python auto_task_sync.py
 
 Behavior worth knowing:
 
+- The default manifest `Ultimate_Manifest.json` is **not** in this repository. Supply your own via `MANIFEST_PATH`.
 - Exits early with a clear message if required variables are missing, or if the manifest file is not found.
 - Each manifest project provides `name`, `type`, optional `repo`, and `stats`. The issue body contains the task type and the stats as JSON.
 - If a project's `repo` differs from `GITHUB_REPO`, it logs a **warning** before creating the issue. Check that this is intentional.
