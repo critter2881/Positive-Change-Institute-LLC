@@ -63,7 +63,7 @@ Today only `PCI_XRPL_001` has a configured pool.
 
 ## DeFi analysis service
 
-`services/defi_analysis.py` is a deterministic model with fixed sample inputs: a constant-product AMM (`x·y = k`) with price impact, LP impermanent-loss estimates, yield quality (real yield vs. emissions), lending utilization and liquidation risk, bridge trust, route and MEV exposure, five stress scenarios (volatility, liquidity, oracle failure, governance change, fee shift), and a capped 0–100 **resilience score**. It is an *analysis framework*, not live market data.
+`services/defi_analysis.py` is a deterministic model that uses a sample pool by default (overridable via `reserve0`, `reserve1`, `fee`, `volatility` query parameters): a constant-product AMM (`x·y = k`) with price impact, LP impermanent-loss estimates, yield quality (real yield vs. emissions), lending utilization and liquidation risk, bridge trust, route and MEV exposure, five stress scenarios (volatility, liquidity, oracle failure, governance change, fee shift), and a capped 0–100 **resilience score**. It is an *analysis framework*, not live market data.
 
 ## Tokenomics model
 

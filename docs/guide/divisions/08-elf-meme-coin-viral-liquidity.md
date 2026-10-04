@@ -13,7 +13,9 @@
 
 ## Purpose
 
-The division name describes its intent: **ELF : Meme Coin : Viral Liquidity**. Detailed product definitions are not yet recorded in this repository. Items marked *to be defined* are intentionally left open so they can be filled in by the division owner, not guessed.
+Culturally resonant meme-economy assets engineered for viral growth and deep liquidity pools.
+
+Product definitions below are **proposed**: they are derived from this description, the existing code, and the registry, and are pending confirmation by the division owner.
 
 ## What exists today
 
@@ -22,16 +24,16 @@ The division name describes its intent: **ELF : Meme Coin : Viral Liquidity**. D
 
 ## Product IDs
 
-| Product ID | Definition |
+| Product ID | Proposed definition |
 |------------|-----------|
-| `PCI_ELF_001` | *To be defined* |
-| `PCI_ELF_002` | *To be defined* |
-| `PCI_ELF_003` | *To be defined* |
+| `PCI_ELF_001` | Meme-economy asset definition and branding |
+| `PCI_ELF_002` | Viral growth and community campaign tooling |
+| `PCI_ELF_003` | Liquidity pool setup for the ELF asset |
 
 ## Next steps
 
 - Product definition and implementation needed.
-- Record each product's definition in the table above, then update the registry if fields are added.
+- Owner to confirm or amend the proposed product definitions above.
 
 ## Related
 [Enterprise Divisions overview](../05-enterprise-divisions.md) · [Backend API](../06-backend-api.md) · [Roadmap](../13-roadmap.md)

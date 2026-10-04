@@ -13,7 +13,9 @@
 
 ## Purpose
 
-The division name describes its intent: **MNR26 : Reset Dashboard : Gamified Liquidity**. Detailed product definitions are not yet recorded in this repository. Items marked *to be defined* are intentionally left open so they can be filled in by the division owner, not guessed.
+Gamified liquidity reset mechanics for protocol rebalancing and community-driven governance.
+
+Product definitions below are **proposed**: they are derived from this description, the existing code, and the registry, and are pending confirmation by the division owner.
 
 ## What exists today
 
@@ -22,16 +24,16 @@ The division name describes its intent: **MNR26 : Reset Dashboard : Gamified Liq
 
 ## Product IDs
 
-| Product ID | Definition |
+| Product ID | Proposed definition |
 |------------|-----------|
-| `PCI_MNR26_001` | *To be defined* |
-| `PCI_MNR26_002` | *To be defined* |
-| `PCI_MNR26_003` | *To be defined* |
+| `PCI_MNR26_001` | Reset mechanics for protocol rebalancing |
+| `PCI_MNR26_002` | Community-driven governance voting |
+| `PCI_MNR26_003` | Reset dashboard and gamified progress display |
 
 ## Next steps
 
 - Product definition and implementation needed.
-- Record each product's definition in the table above, then update the registry if fields are added.
+- Owner to confirm or amend the proposed product definitions above.
 
 ## Related
 [Enterprise Divisions overview](../05-enterprise-divisions.md) · [Backend API](../06-backend-api.md) · [Roadmap](../13-roadmap.md)

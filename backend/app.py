@@ -369,8 +369,20 @@ def create_app(config: dict | None = None) -> Flask:
 
     @app.route("/api/defi/analysis", methods=["GET"])
     def defi_analysis():
-        """Return the PCI sovereign DeFi architecture analysis snapshot."""
-        return jsonify(run_defi_analysis())
+        """Return the PCI sovereign DeFi architecture analysis snapshot.
+
+        Optional query params override the sample pool: reserve0, reserve1,
+        fee, volatility (all numbers).
+        """
+        try:
+            kwargs = {
+                key: float(request.args[key])
+                for key in ("reserve0", "reserve1", "fee", "volatility")
+                if key in request.args
+            }
+            return jsonify(run_defi_analysis(**kwargs))
+        except ValueError as exc:
+            return jsonify({"error": str(exc)}), 400
 
     # ---- NFT Collections ---------------------------------------------------
     @app.route("/api/nft/collections", methods=["GET"])

@@ -641,3 +641,21 @@ class TestNotFound:
 # ---------------------------------------------------------------------------
 def resp_json(response) -> dict | list:
     return json.loads(response.data)
+
+
+class TestDefiAnalysisParams:
+    def test_defaults_unchanged(self, client):
+        data = client.get("/api/defi/analysis").get_json()
+        assert data["amm"]["invariant"] == 500000 * 800000
+
+    def test_custom_reserves(self, client):
+        data = client.get("/api/defi/analysis?reserve0=1000&reserve1=2000").get_json()
+        assert data["amm"]["invariant"] == 2_000_000
+
+    def test_invalid_number_returns_400(self, client):
+        resp = client.get("/api/defi/analysis?reserve0=abc")
+        assert resp.status_code == 400
+        assert "error" in resp.get_json()
+
+    def test_non_positive_reserve_returns_400(self, client):
+        assert client.get("/api/defi/analysis?reserve1=0").status_code == 400

@@ -13,7 +13,9 @@
 
 ## Purpose
 
-The division name describes its intent: **Arcane Blockchain : Token Liquidity Layer**. Detailed product definitions are not yet recorded in this repository. Items marked *to be defined* are intentionally left open so they can be filled in by the division owner, not guessed.
+Cross-chain token infrastructure built for deep liquidity and high-frequency settlement.
+
+Product definitions below are **proposed**: they are derived from this description, the existing code, and the registry, and are pending confirmation by the division owner.
 
 ## What exists today
 
@@ -22,15 +24,15 @@ The division name describes its intent: **Arcane Blockchain : Token Liquidity La
 
 ## Product IDs
 
-| Product ID | Definition |
+| Product ID | Proposed definition |
 |------------|-----------|
-| `PCI_BC_001` | *To be defined* |
-| `PCI_BC_002` | *To be defined* |
+| `PCI_BC_001` | Cross-chain token liquidity infrastructure |
+| `PCI_BC_002` | High-frequency settlement layer |
 
 ## Next steps
 
 - Define `PCI_BC_001` and `PCI_BC_002`; configure chains and pools.
-- Record each product's definition in the table above, then update the registry if fields are added.
+- Owner to confirm or amend the proposed product definitions above.
 
 ## Related
 [Enterprise Divisions overview](../05-enterprise-divisions.md) · [Backend API](../06-backend-api.md) · [Roadmap](../13-roadmap.md)

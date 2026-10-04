@@ -13,7 +13,9 @@
 
 ## Purpose
 
-The division name describes its intent: **APO : Aegis Prometheus Oracle : Sovereign Metadata**. Detailed product definitions are not yet recorded in this repository. Items marked *to be defined* are intentionally left open so they can be filled in by the division owner, not guessed.
+Sovereign metadata oracle for multi-chain, multi-system integrity: one oracle, one law, one truth (from apo/apo.py META).
+
+Product definitions below are **proposed**: they are derived from this description, the existing code, and the registry, and are pending confirmation by the division owner.
 
 ## What exists today
 
@@ -22,20 +24,20 @@ The division name describes its intent: **APO : Aegis Prometheus Oracle : Sovere
 
 ## Product IDs
 
-| Product ID | Definition |
+| Product ID | Proposed definition |
 |------------|-----------|
-| `PCI_APO_001` | *To be defined* |
-| `PCI_APO_002` | *To be defined* |
-| `PCI_APO_003` | *To be defined* |
-| `PCI_APO_004` | *To be defined* |
-| `PCI_APO_005` | *To be defined* |
-| `PCI_APO_006` | *To be defined* |
-| `PCI_APO_007` | *To be defined* |
+| `PCI_APO_001` | APO core whitepaper |
+| `PCI_APO_002` | APO technical whitepaper |
+| `PCI_APO_003` | APO operational whitepaper |
+| `PCI_APO_004` | APO enterprise whitepaper |
+| `PCI_APO_005` | APO doctrine whitepaper |
+| `PCI_APO_006` | APO IP protection whitepaper |
+| `PCI_APO_007` | APO value and pricing whitepaper |
 
 ## Next steps
 
-- Map the seven `PCI_APO_*` IDs to the six whitepapers; add evidence for headline figures.
-- Record each product's definition in the table above, then update the registry if fields are added.
+- Map the seven `PCI_APO_*` IDs to the seven whitepapers; add evidence for headline figures.
+- Owner to confirm or amend the proposed product definitions above.
 
 ## Related
 [Enterprise Divisions overview](../05-enterprise-divisions.md) · [Backend API](../06-backend-api.md) · [Roadmap](../13-roadmap.md)

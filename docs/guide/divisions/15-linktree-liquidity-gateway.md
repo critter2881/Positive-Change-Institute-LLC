@@ -13,7 +13,9 @@
 
 ## Purpose
 
-The division name describes its intent: **Linktree : Liquidity Gateway**. Detailed product definitions are not yet recorded in this repository. Items marked *to be defined* are intentionally left open so they can be filled in by the division owner, not guessed.
+Unified multi-chain gateway connecting ecosystem participants to all liquidity verticals.
+
+Product definitions below are **proposed**: they are derived from this description, the existing code, and the registry, and are pending confirmation by the division owner.
 
 ## What exists today
 
@@ -22,15 +24,15 @@ The division name describes its intent: **Linktree : Liquidity Gateway**. Detail
 
 ## Product IDs
 
-| Product ID | Definition |
+| Product ID | Proposed definition |
 |------------|-----------|
-| `PCI_LT_001` | *To be defined* |
-| `PCI_LT_002` | *To be defined* |
+| `PCI_LT_001` | Unified multi-chain gateway |
+| `PCI_LT_002` | Public participant landing page (`frontend/index.html`) |
 
 ## Next steps
 
 - Define the two gateway products.
-- Record each product's definition in the table above, then update the registry if fields are added.
+- Owner to confirm or amend the proposed product definitions above.
 
 ## Related
 [Enterprise Divisions overview](../05-enterprise-divisions.md) · [Backend API](../06-backend-api.md) · [Roadmap](../13-roadmap.md)

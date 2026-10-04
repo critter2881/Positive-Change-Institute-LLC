@@ -13,7 +13,9 @@
 
 ## Purpose
 
-The division name describes its intent: **XRPL : NFT Liquidity Ecosystem**. Detailed product definitions are not yet recorded in this repository. Items marked *to be defined* are intentionally left open so they can be filled in by the division owner, not guessed.
+XRP Ledger-native NFT collections with programmable royalties and auto-evolving metadata.
+
+Product definitions below are **proposed**: they are derived from this description, the existing code, and the registry, and are pending confirmation by the division owner.
 
 ## What exists today
 
@@ -22,16 +24,16 @@ The division name describes its intent: **XRPL : NFT Liquidity Ecosystem**. Deta
 
 ## Product IDs
 
-| Product ID | Definition |
+| Product ID | Proposed definition |
 |------------|-----------|
-| `PCI_XRPL_001` | *To be defined* |
-| `PCI_XRPL_002` | *To be defined* |
-| `PCI_XRPL_003` | *To be defined* |
+| `PCI_XRPL_001` | Arcana Enterprise Forge® (Adaptive) NFT collection and its live liquidity pool (`FORGE-001`) |
+| `PCI_XRPL_002` | Arcana Enterprise Relics® (Mythic) NFT collection (`RELICS-001`) |
+| `PCI_XRPL_003` | Arcana Enterprise Ascendants® (Legendary) NFT collection (`ASCEND-001`) |
 
 ## Next steps
 
 - Configure pool addresses for `PCI_XRPL_002` and `PCI_XRPL_003`.
-- Record each product's definition in the table above, then update the registry if fields are added.
+- Owner to confirm or amend the proposed product definitions above.
 
 ## Related
 [Enterprise Divisions overview](../05-enterprise-divisions.md) · [Backend API](../06-backend-api.md) · [Roadmap](../13-roadmap.md)

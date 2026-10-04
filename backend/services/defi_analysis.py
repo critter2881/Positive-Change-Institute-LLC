@@ -163,10 +163,27 @@ def simulate_fee_shift(structure: dict) -> dict:
     return {"shock": "fee_shift", "impact": "medium"}
 
 
-def run_defi_analysis() -> dict:
-    """Run the default PCI DeFi analysis suite."""
-    amm = analyze_amm({"reserve0": 500000, "reserve1": 800000, "fee": 0.003})
-    lp = lp_risk({"reserve0": 500000, "reserve1": 800000, "volatility": 0.4})
+def run_defi_analysis(
+    reserve0: float = 500000,
+    reserve1: float = 800000,
+    fee: float = 0.003,
+    volatility: float = 0.4,
+) -> dict:
+    """Run the PCI DeFi analysis suite.
+
+    The AMM and LP inputs default to the sample pool and can be overridden
+    with real pool data.
+    """
+    if reserve0 <= 0 or reserve1 <= 0:
+        raise ValueError("reserve0 and reserve1 must be positive")
+    if not 0 <= fee < 1:
+        raise ValueError("fee must be at least 0 and less than 1")
+    if volatility < 0:
+        raise ValueError("volatility must be non-negative")
+    amm = analyze_amm({"reserve0": reserve0, "reserve1": reserve1, "fee": fee})
+    lp = lp_risk(
+        {"reserve0": reserve0, "reserve1": reserve1, "volatility": volatility}
+    )
     yield_analysis = analyze_yield(
         {"real_yield": 0.05, "emissions": 0.02, "synthetic": 0.01}
     )

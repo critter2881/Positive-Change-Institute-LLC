@@ -1,6 +1,6 @@
 # Division Profiles
 
-One profile per entry in `config/divisions_registry.json`. Statuses: **Implemented**, **Partial** (some code exists), **Documented**, **Registered only** (no code yet).
+One profile per entry in `config/divisions_registry.json`. Product definitions are **proposed** drafts derived from the frontend descriptions, existing code, and registry; owners should confirm them. Statuses: **Implemented**, **Partial** (some code exists), **Documented**, **Registered only** (no code yet).
 
 | # | Division | Status | Products |
 |---|----------|--------|----------|

@@ -13,7 +13,9 @@
 
 ## Purpose
 
-The division name describes its intent: **Positive Change Institute LLC**. Detailed product definitions are not yet recorded in this repository. Items marked *to be defined* are intentionally left open so they can be filled in by the division owner, not guessed.
+Positive Change Institute LLC is an innovation and systems architecture firm building automated, AI-driven, multi-platform digital ecosystems (see docs/PCI_BRAND.md).
+
+Product definitions below are **proposed**: they are derived from this description, the existing code, and the registry, and are pending confirmation by the division owner.
 
 ## What exists today
 
@@ -22,16 +24,16 @@ The division name describes its intent: **Positive Change Institute LLC**. Detai
 
 ## Product IDs
 
-| Product ID | Definition |
+| Product ID | Proposed definition |
 |------------|-----------|
-| `PCI_ORG_001` | *To be defined* |
-| `PCI_ORG_002` | *To be defined* |
-| `PCI_ORG_003` | *To be defined* |
+| `PCI_ORG_001` | Institutional profile: brand, mission, and filing-style records (`docs/PCI_BRAND.md`) |
+| `PCI_ORG_002` | Governance and compliance doctrine (`docs/WHITEPAPER.md`) |
+| `PCI_ORG_003` | Public registries: division registry and wallet registry (`config/`) |
 
 ## Next steps
 
 - Define `PCI_ORG_001` to `PCI_ORG_003`.
-- Record each product's definition in the table above, then update the registry if fields are added.
+- Owner to confirm or amend the proposed product definitions above.
 
 ## Related
 [Enterprise Divisions overview](../05-enterprise-divisions.md) · [Backend API](../06-backend-api.md) · [Roadmap](../13-roadmap.md)

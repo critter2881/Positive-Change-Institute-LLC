@@ -13,7 +13,9 @@
 
 ## Purpose
 
-The division name describes its intent: **Quantum AI : Market Liquidity Engine**. Detailed product definitions are not yet recorded in this repository. Items marked *to be defined* are intentionally left open so they can be filled in by the division owner, not guessed.
+Autonomous AI pipelines driving real-time market intelligence and liquidity optimization at scale.
+
+Product definitions below are **proposed**: they are derived from this description, the existing code, and the registry, and are pending confirmation by the division owner.
 
 ## What exists today
 
@@ -22,16 +24,16 @@ The division name describes its intent: **Quantum AI : Market Liquidity Engine**
 
 ## Product IDs
 
-| Product ID | Definition |
+| Product ID | Proposed definition |
 |------------|-----------|
-| `PCI_AI_001` | *To be defined* |
-| `PCI_AI_002` | *To be defined* |
-| `PCI_AI_003` | *To be defined* |
+| `PCI_AI_001` | Real-time market intelligence pipeline |
+| `PCI_AI_002` | Liquidity optimization engine (builds on `/api/defi/analysis`) |
+| `PCI_AI_003` | Scenario and stress-test simulator (volatility, liquidity, oracle failure, governance, fee shift) |
 
 ## Next steps
 
 - Feed the analysis with live pool data instead of fixed sample inputs.
-- Record each product's definition in the table above, then update the registry if fields are added.
+- Owner to confirm or amend the proposed product definitions above.
 
 ## Related
 [Enterprise Divisions overview](../05-enterprise-divisions.md) · [Backend API](../06-backend-api.md) · [Roadmap](../13-roadmap.md)

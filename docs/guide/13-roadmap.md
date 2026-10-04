@@ -14,7 +14,7 @@ This chapter is the honest list of what is not finished. Sources are `tasks.md`,
 
 1. **Divisions without implementations.** Most of the 16 registry entries have product IDs but no dedicated code (Chapter 5).
 2. **Liquidity coverage.** Only `PCI_XRPL_001` has a configured pool, so everything else reports `no_pool_configured`.
-3. **DeFi analysis uses sample inputs.** Wiring it to live pool data would make `/api/defi/analysis` operational.
+3. **DeFi analysis uses sample inputs by default.** It now accepts `reserve0`, `reserve1`, `fee`, and `volatility` query parameters. Automatically feeding it from live pool data is still open.
 4. ~~Task sync lacks de-duplication.~~ Done: `auto_task_sync.py` now skips titles that already have an open issue.
 5. **Claims need evidence.** APO's headline figures need a measurement method or should stay labeled as claims.
 6. **Single-branch hygiene.** Keep `main` canonical and archive stale branches and repositories (Chapter 2).

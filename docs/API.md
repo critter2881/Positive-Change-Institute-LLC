@@ -144,6 +144,8 @@ stale cache or `"unavailable"` if the live fetch fails.
 Returns the default PCI DeFi architecture analysis snapshot spanning AMM, LP, yield,
 lending, bridge, routing, scenario stress tests, and a composite resilience score.
 
+**Optional query parameters** (override the sample pool): `reserve0`, `reserve1` (must be positive), `fee` (0 to <1), `volatility` (non-negative). Invalid values return `400` with an `error` key.
+
 **Response `200`**
 ```json
 {
