@@ -150,6 +150,8 @@ ArcanaPass · Prometheus Orchestrator · Foundry Analytics · Linktree Gateway �
 
 ## Documentation
 
+New here? Read the guide in order: [**The Positive Change Institute Guide**](docs/README.md).
+
 | Document | Purpose |
 |----------|---------|
 | [docs/API.md](docs/API.md) | REST API reference |
