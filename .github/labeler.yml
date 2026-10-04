@@ -1,0 +1,21 @@
+backend:
+  - changed-files:
+      - any-glob-to-any-file: ["backend/**", "tests/**", "requirements.txt"]
+frontend:
+  - changed-files:
+      - any-glob-to-any-file: ["frontend/**"]
+documentation:
+  - changed-files:
+      - any-glob-to-any-file: ["docs/**", "README.md", "CHANGELOG.md", "tasks.md"]
+nft:
+  - changed-files:
+      - any-glob-to-any-file: ["arcana_enterprise_nfts/**"]
+prometheus-apo:
+  - changed-files:
+      - any-glob-to-any-file: ["apo/**"]
+config:
+  - changed-files:
+      - any-glob-to-any-file: ["config/**"]
+automation:
+  - changed-files:
+      - any-glob-to-any-file: [".github/**", "auto_task_sync.py"]

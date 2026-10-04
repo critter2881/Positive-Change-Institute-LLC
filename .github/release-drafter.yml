@@ -1,0 +1,14 @@
+name-template: "v$RESOLVED_VERSION"
+tag-template: "v$RESOLVED_VERSION"
+categories:
+  - title: "Features"
+    labels: [backend, frontend, nft, prometheus-apo]
+  - title: "Documentation"
+    labels: [documentation]
+  - title: "Configuration and automation"
+    labels: [config, automation, dependencies]
+change-template: "- $TITLE (#$NUMBER) @$AUTHOR"
+template: |
+  ## Changes
+
+  $CHANGES

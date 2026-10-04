@@ -24,6 +24,7 @@ Each part builds on the one before it, but any chapter can also be read on its o
 ## Part IV — Looking Ahead
 13. [Roadmap and Open Work](guide/13-roadmap.md)
 14. [Glossary](guide/14-glossary.md)
+15. [GitHub Automation](guide/15-github-automation.md): CI, security, dependencies, labeling, releases.
 
 ## Reference documents
 - [Brand & Mission](PCI_BRAND.md) · [White Paper](WHITEPAPER.md) · [Architecture](ARCHITECTURE.md)
