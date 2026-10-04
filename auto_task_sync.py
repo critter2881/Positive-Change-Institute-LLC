@@ -54,11 +54,10 @@ def _headers() -> dict:
     }
 
 
-def issue_exists(title: str, repo: str) -> bool:
+def issue_exists(title: str, repo: str) -> bool | None:
     """Return True if an open issue with exactly this title already exists.
 
-    On lookup failure this returns False so a transient error never blocks
-    task creation.
+    Return None when the lookup fails, so task creation can fail closed.
     """
     url = f"{GITHUB_API_URL}/repos/{repo}/issues"
     page = 1
@@ -74,9 +73,15 @@ def issue_exists(title: str, repo: str) -> bool:
                 logger.warning(
                     "Could not list issues in %s: HTTP %d", repo, response.status_code
                 )
-                return False
+                return None
             issues = response.json()
+            if not isinstance(issues, list):
+                logger.warning("Could not list issues in %s: invalid response", repo)
+                return None
             for issue in issues:
+                if not isinstance(issue, dict):
+                    logger.warning("Could not list issues in %s: invalid response", repo)
+                    return None
                 if "pull_request" not in issue and issue.get("title") == title:
                     return True
             if len(issues) < 100:
@@ -84,13 +89,17 @@ def issue_exists(title: str, repo: str) -> bool:
             page += 1
     except (requests.RequestException, ValueError) as exc:
         logger.warning("Issue lookup failed for %s: %s", repo, exc)
-        return False
+        return None
 
 
 def create_task(name: str, task_type: str, repo: str, stats: dict) -> None:
     """Create a GitHub Issue for the given project entry (skips duplicates)."""
-    if issue_exists(name, repo):
+    exists = issue_exists(name, repo)
+    if exists is True:
         logger.info("Skipping '%s' in %s: open issue already exists", name, repo)
+        return
+    if exists is None:
+        logger.error("Skipping '%s' in %s: issue lookup failed", name, repo)
         return
     url = f"{GITHUB_API_URL}/repos/{repo}/issues"
     headers = _headers()

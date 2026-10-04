@@ -75,6 +75,18 @@ def test_client_error_not_retried(monkeypatch):
     assert out["mode"] == "failed" and len(calls) == 1
 
 
+def test_malformed_successful_responses_fail_gracefully(monkeypatch):
+    for payload in ([], {"choices": [{"message": {"content": None}}]}):
+        response = MagicMock()
+        response.status_code = 200
+        response.raise_for_status.return_value = None
+        response.json.return_value = payload
+        _router(monkeypatch, {"openai": [response]})
+        result = prom.call_provider("openai", "task", "", "key", sleep=NOSLEEP)
+        assert result["ok"] is False
+        assert result["error"] == "ValueError"
+
+
 def test_all_fail_is_graceful(monkeypatch):
     _router(monkeypatch, {"openai": [_status(500)], "x.ai": [_status(500)]})
     out = prom.execute("t", "", {"openai": "k", "grok": "k"}, sleep=NOSLEEP)

@@ -4,6 +4,8 @@ PCI Sovereign DeFi Architecture analysis service.
 
 from __future__ import annotations
 
+import math
+
 
 def invariant_xyk(reserve0: float, reserve1: float) -> float:
     """Return the constant-product invariant."""
@@ -174,6 +176,8 @@ def run_defi_analysis(
     The AMM and LP inputs default to the sample pool and can be overridden
     with real pool data.
     """
+    if not all(math.isfinite(value) for value in (reserve0, reserve1, fee, volatility)):
+        raise ValueError("all inputs must be finite numbers")
     if reserve0 <= 0 or reserve1 <= 0:
         raise ValueError("reserve0 and reserve1 must be positive")
     if not 0 <= fee < 1:

@@ -83,7 +83,19 @@ def call_provider(
                 error = f"HTTP {resp.status_code}"
             else:
                 resp.raise_for_status()
-                content = resp.json()["choices"][0]["message"]["content"].strip()
+                data = resp.json()
+                choices = data.get("choices") if isinstance(data, dict) else None
+                message = (
+                    choices[0].get("message")
+                    if isinstance(choices, list)
+                    and choices
+                    and isinstance(choices[0], dict)
+                    else None
+                )
+                content = message.get("content") if isinstance(message, dict) else None
+                if not isinstance(content, str) or not content.strip():
+                    raise ValueError("invalid provider response")
+                content = content.strip()
                 return {
                     "ok": True,
                     "provider": name,

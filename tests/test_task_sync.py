@@ -23,9 +23,9 @@ def test_issue_exists_ignores_pull_requests():
         assert sync.issue_exists("A", "o/r") is False
 
 
-def test_issue_exists_false_on_http_error():
+def test_issue_exists_returns_none_on_http_error():
     with patch.object(sync.requests, "get", return_value=_resp(500, [])):
-        assert sync.issue_exists("A", "o/r") is False
+        assert sync.issue_exists("A", "o/r") is None
 
 
 def test_create_task_skips_duplicate():
@@ -40,3 +40,10 @@ def test_create_task_posts_when_new():
             patch.object(sync.requests, "post", return_value=_resp(201, {})) as post:
         sync.create_task("A", "t", "o/r", {})
         post.assert_called_once()
+
+
+def test_create_task_skips_when_issue_lookup_fails():
+    with patch.object(sync, "issue_exists", return_value=None), \
+            patch.object(sync.requests, "post") as post:
+        sync.create_task("A", "t", "o/r", {})
+        post.assert_not_called()

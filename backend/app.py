@@ -369,7 +369,9 @@ def create_app(config: dict | None = None) -> Flask:
         if not task:
             return jsonify({"error": "Missing required field: 'task'"}), 400
 
-        cross_check = bool(body.get("cross_check", False))
+        cross_check = body.get("cross_check", False)
+        if not isinstance(cross_check, bool):
+            return jsonify({"error": "'cross_check' must be a boolean"}), 400
         outcome = execute_task(
             task,
             division,

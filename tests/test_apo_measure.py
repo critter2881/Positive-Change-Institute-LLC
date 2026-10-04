@@ -14,3 +14,8 @@ def test_measure_small_run():
 
 def test_percentile():
     assert apo_measure.percentile([1, 2, 3, 4], 100) == 4
+
+
+def test_failure_rate_upper_bound_exceeds_observed_rate():
+    assert apo_measure.failure_rate_upper_bound(1, 100) > 0.01
+    assert apo_measure.failure_rate_upper_bound(0, 100) > 0

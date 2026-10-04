@@ -5,6 +5,7 @@ Runs against an in-memory Flask test client so no external services are needed.
 """
 
 import json
+
 import pytest
 
 # ---------------------------------------------------------------------------
@@ -427,6 +428,21 @@ class TestPrometheus:
         )
         assert data["status"] == "ok"
 
+    @pytest.mark.parametrize("cross_check", ["false", "true", 0, 1, None])
+    def test_cross_check_requires_json_boolean(self, client, cross_check):
+        response = client.post(
+            "/api/prometheus/execute",
+            json={"task": "test", "cross_check": cross_check},
+        )
+        assert response.status_code == 400
+
+    def test_cross_check_accepts_json_boolean(self, client):
+        response = client.post(
+            "/api/prometheus/execute",
+            json={"task": "test", "cross_check": True},
+        )
+        assert response.status_code == 200
+
 
 # ---------------------------------------------------------------------------
 # GET /api/analytics/summary
@@ -659,3 +675,20 @@ class TestDefiAnalysisParams:
 
     def test_non_positive_reserve_returns_400(self, client):
         assert client.get("/api/defi/analysis?reserve1=0").status_code == 400
+
+    @pytest.mark.parametrize(
+        ("parameter", "value"),
+        [
+            ("reserve0", "nan"),
+            ("reserve0", "inf"),
+            ("reserve1", "nan"),
+            ("reserve1", "inf"),
+            ("fee", "nan"),
+            ("fee", "inf"),
+            ("volatility", "nan"),
+            ("volatility", "inf"),
+        ],
+    )
+    def test_non_finite_inputs_return_400(self, client, parameter, value):
+        response = client.get(f"/api/defi/analysis?{parameter}={value}")
+        assert response.status_code == 400

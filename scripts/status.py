@@ -38,7 +38,9 @@ def last_change() -> str:
         return "no changelog"
     for line in path.read_text(encoding="utf-8").splitlines():
         if line.startswith("## ["):
-            return line[3:].strip()
+            version = line[3:].strip()
+            if version.lower() != "[unreleased]":
+                return version
     return "no entries"
 
 

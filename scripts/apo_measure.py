@@ -21,8 +21,8 @@ Usage::
     python scripts/apo_measure.py [--requests N] [--output PATH]
 
 Exit code is non-zero if any integrity check fails or latency exceeds the
-claim. A clean run bounds the failure rate (rule of three, 95%); it does not
-prove 99.997% unless N is at least 100,000.
+claim. The report includes a one-sided Wilson upper bound (95%); a clean run
+does not prove 99.997% unless N is at least 100,000.
 """
 
 from __future__ import annotations
@@ -47,6 +47,7 @@ from apo import apo  # noqa: E402
 ENDPOINTS = ["/api/apo_stats", "/api/meta", "/api/apo_whitepapers", "/api/apo_docs"]
 CLAIMED_INTEGRITY = 0.99997
 CLAIMED_LATENCY_S = 0.08
+_WILSON_Z_95 = 1.6448536269514722
 UNMEASURABLE = [
     "14,000+ validator reach points",
     "7-orbit satellite redundancy",
@@ -73,6 +74,18 @@ def percentile(values: list[float], pct: float) -> float:
     ordered = sorted(values)
     idx = min(len(ordered) - 1, int(round(pct / 100 * (len(ordered) - 1))))
     return ordered[idx]
+
+
+def failure_rate_upper_bound(failures: int, requests: int) -> float:
+    """Return the one-sided 95% Wilson upper bound for a binomial rate."""
+    rate = failures / requests
+    z2 = _WILSON_Z_95**2
+    denominator = 1 + z2 / requests
+    center = rate + z2 / (2 * requests)
+    margin = _WILSON_Z_95 * (
+        rate * (1 - rate) / requests + z2 / (4 * requests**2)
+    ) ** 0.5
+    return (center + margin) / denominator
 
 
 def measure(requests: int) -> dict:
@@ -106,7 +119,7 @@ def measure(requests: int) -> dict:
         server.server_close()
 
     rate = 1 - failures / requests
-    upper = 3 / requests if failures == 0 else failures / requests
+    upper = failure_rate_upper_bound(failures, requests)
     return {
         "requests": requests,
         "failures": failures,

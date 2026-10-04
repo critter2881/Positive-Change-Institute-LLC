@@ -1,11 +1,13 @@
 """Tests for the auto-evolution engine and quant verification."""
 
 import datetime
+import sys
 
 import pytest
 
 from arcana_enterprise_nfts.arcana_nfts import arcana_nfts
 from arcana_enterprise_nfts.evolution.engine import evolve
+from scripts import quant_verify
 from scripts.quant_verify import rotating_seed, verify
 
 FORGE = next(n for n in arcana_nfts if n["product_id"] == "FORGE-001")
@@ -24,6 +26,12 @@ def test_negative_score_rejected():
         evolve(FORGE, -1)
 
 
+@pytest.mark.parametrize("score", [float("nan"), float("inf"), float("-inf")])
+def test_non_finite_score_rejected(score):
+    with pytest.raises(ValueError):
+        evolve(FORGE, score)
+
+
 def test_non_evolving_nft():
     assert evolve({"product_id": "X", "auto_evolution": False}, 999)["evolving"] is False
 
@@ -40,6 +48,17 @@ def test_quant_verification_passes_and_is_reproducible():
     assert first == verify(seed=1, samples=50)
 
 
+def test_quant_verification_rejects_zero_samples(tmp_path, monkeypatch):
+    output = tmp_path / "report.json"
+    monkeypatch.setattr(
+        sys, "argv", ["quant_verify.py", "--samples", "0", "--output", str(output)]
+    )
+    with pytest.raises(SystemExit) as exc:
+        quant_verify.main()
+    assert exc.value.code == 2
+    assert not output.exists()
+
+
 @pytest.fixture
 def client():
     from backend.app import create_app
@@ -54,3 +73,4 @@ def test_evolve_endpoint(client):
     assert data["level"] == 2
     assert client.get("/api/nft/collections/NOPE/evolve").status_code == 404
     assert client.get("/api/nft/collections/FORGE-001/evolve?score=x").status_code == 400
+    assert client.get("/api/nft/collections/FORGE-001/evolve?score=nan").status_code == 400

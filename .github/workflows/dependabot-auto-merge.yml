@@ -1,7 +1,8 @@
-name: Auto-update (Dependabot auto-merge)
+name: Dependabot auto-merge
 
 on:
-  pull_request:
+  pull_request_target:
+    types: [opened, reopened, synchronize]
 
 permissions:
   contents: write
@@ -12,7 +13,25 @@ jobs:
     if: github.actor == 'dependabot[bot]'
     runs-on: ubuntu-latest
     steps:
+      - id: verify
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { data: pr } = await github.rest.pulls.get({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.payload.pull_request.number,
+            });
+            const verified = pr.user.login === 'dependabot[bot]' &&
+              pr.head.ref.startsWith('dependabot/') &&
+              pr.head.repo.full_name === context.payload.repository.full_name &&
+              pr.base.repo.full_name === context.payload.repository.full_name &&
+              pr.state === 'open' &&
+              !pr.labels.some(label => label.name === 'hold');
+            core.setOutput('verified', String(verified));
+            core.setOutput('url', pr.html_url);
       - id: meta
+        if: steps.verify.outputs.verified == 'true'
         uses: dependabot/fetch-metadata@v2
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
@@ -20,9 +39,10 @@ jobs:
       # Major updates, and any PR labeled `hold`, are left for human review.
       - name: Enable auto-merge for patch and minor updates
         if: >-
+          steps.verify.outputs.verified == 'true' &&
           steps.meta.outputs.update-type != 'version-update:semver-major' &&
-          !contains(github.event.pull_request.labels.*.name, 'hold')
+          steps.meta.outputs.update-type != ''
         run: gh pr merge --auto --squash "$PR_URL"
         env:
-          PR_URL: ${{ github.event.pull_request.html_url }}
+          PR_URL: ${{ steps.verify.outputs.url }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

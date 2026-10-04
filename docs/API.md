@@ -210,6 +210,21 @@ Returns a single NFT entry by product ID (e.g. `FORGE-001`).
 
 **Response `404`** — unknown product ID.
 
+### `GET /api/nft/collections/<product_id>/evolve`
+
+Returns the deterministic evolution state for an NFT and its activity score.
+
+| Query parameter | Required | Description |
+|-----------------|----------|-------------|
+| `score` | no | Finite, non-negative activity score; defaults to `0`. |
+
+**Response `200`** — includes `product_id`, `evolving`, `level`, `traits`, and
+`next_level_at`.
+
+**Response `400`** — invalid, negative, or non-finite score.
+
+**Response `404`** — unknown product ID.
+
 ---
 
 ## Prometheus AI Orchestrator

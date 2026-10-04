@@ -108,6 +108,8 @@ def main() -> int:
     parser.add_argument("--samples", type=int, default=500)
     parser.add_argument("--output", default=str(_ROOT / "reports" / "quant_verification.json"))
     args = parser.parse_args()
+    if args.samples < 1:
+        parser.error("--samples must be at least 1")
     seed = args.seed if args.seed is not None else rotating_seed()
     result = verify(seed, args.samples)
     Path(args.output).write_text(json.dumps(result, indent=2) + "\n", encoding="utf-8")

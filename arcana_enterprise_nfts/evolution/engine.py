@@ -8,14 +8,16 @@ when the score reaches its threshold.
 
 from __future__ import annotations
 
+import math
+
 # Minimum activity score required for each evolution level.
 LEVEL_THRESHOLDS = {1: 0, 2: 100, 3: 500}
 
 
 def evolve(nft: dict, score: float) -> dict:
     """Return the evolution state of *nft* for the given activity *score*."""
-    if score < 0:
-        raise ValueError("score must be non-negative")
+    if not math.isfinite(score) or score < 0:
+        raise ValueError("score must be finite and non-negative")
     paths = sorted(nft.get("evolution_paths", []), key=lambda p: p["level"])
     if not nft.get("auto_evolution") or not paths:
         return {

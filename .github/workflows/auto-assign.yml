@@ -28,8 +28,17 @@ jobs:
             const workers = [...cfg.matchAll(/^\s+-\s+([A-Za-z0-9-]+)\s*$/gm)].map(m => m[1]);
             const item = context.payload.issue || context.payload.pull_request;
             if (!workers.length || item.assignees.length || item.user.type === 'Bot') return;
-            const worker = workers[item.number % workers.length];
+            const countKey = context.payload.pull_request
+              ? 'assignees_per_pr'
+              : 'assignees_per_issue';
+            const countMatch = cfg.match(new RegExp(`^\\s*${countKey}:\\s*(\\d+)\\s*$`, 'm'));
+            const count = countMatch ? Number(countMatch[1]) : 1;
+            if (!Number.isSafeInteger(count) || count < 1) return;
+            const assignees = Array.from(
+              { length: Math.min(count, workers.length) },
+              (_, index) => workers[(item.number + index) % workers.length]
+            );
             await github.rest.issues.addAssignees({
               owner: context.repo.owner, repo: context.repo.repo,
-              issue_number: item.number, assignees: [worker],
+              issue_number: item.number, assignees,
             });

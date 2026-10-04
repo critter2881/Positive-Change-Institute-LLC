@@ -13,7 +13,7 @@ _ROOT = Path(__file__).resolve().parent.parent
 _BLOCKED_HASHES = {
     "6a83384e3d1a13d74bd8c0fc699a403fe0b1b264a050b21fdbed90da09e53ac9",
 }
-_SKIP_DIRS = {".git", "__pycache__", ".pytest_cache", "node_modules"}
+_SKIP_DIRS = {".git", "__pycache__", ".pytest_cache", ".venv", "node_modules"}
 
 
 def _blocked(text: str) -> bool:
