@@ -72,13 +72,15 @@ Positive-Change-Institute-LLC/
 │   └── config/
 │       └── tier_templates.yaml
 ├── tests/                    # pytest suite
+│   ├── test_arcana_nfts.py
 │   └── test_backend.py
 ├── docs/                     # Project documentation
 │   ├── API.md
 │   ├── ARCHITECTURE.md
-│   ├── SETUP.md
-│   └── CONTRIBUTING.md
-├── scripts/                  # Utility scripts
+│   ├── CONTRIBUTING.md
+│   ├── PCI_BRAND.md
+│   ├── README.md
+│   └── SETUP.md
 ├── .github/workflows/        # GitHub Actions CI/CD
 ├── .env.example              # Environment variable reference
 ├── requirements.txt          # Python dependencies
@@ -98,7 +100,7 @@ Positive-Change-Institute-LLC/
 | `GET` | `/api/product_metadata` | Metadata for a wallet + product ID pair |
 | `GET` | `/api/real_time_liquidity` | Simulated liquidity pool depths |
 
-See [`docs/API.md`](docs/API.md) for full request/response details.
+See [`API.md`](API.md) for full request/response details.
 
 ---
 
@@ -127,19 +129,19 @@ The Institute operates 14 sovereign liquidity verticals:
 
 ## Documentation
 
-- [Architecture overview](docs/ARCHITECTURE.md)
-- [Setup and deployment guide](docs/SETUP.md)
-- [API reference](docs/API.md)
-- [Contributing guide](docs/CONTRIBUTING.md)
+- [Architecture overview](ARCHITECTURE.md)
+- [Setup and deployment guide](SETUP.md)
+- [API reference](API.md)
+- [Contributing guide](CONTRIBUTING.md)
 
 ---
 
 ## Contributing
 
-See [`docs/CONTRIBUTING.md`](docs/CONTRIBUTING.md) for guidelines.
+See [`CONTRIBUTING.md`](CONTRIBUTING.md) for guidelines.
 
 ---
 
 ## License
 
-[MIT](LICENSE) © 2026 Positive Change Institute LLC
+[MIT](../LICENSE) © 2026 Positive Change Institute LLC

@@ -64,10 +64,17 @@ def lp_risk(position: dict) -> dict:
     impermanent_loss = volatility * 0.02
     fee_apr = float(position.get("fee_apr", 0.1))
 
+    if volatility > 0.6:
+        volatility_exposure = "high"
+    elif volatility > 0.3:
+        volatility_exposure = "medium"
+    else:
+        volatility_exposure = "low"
+
     return {
         "impermanent_loss_estimate": impermanent_loss,
         "fee_apr": fee_apr,
-        "volatility_exposure": "high" if volatility > 0.6 else "medium",
+        "volatility_exposure": volatility_exposure,
     }
 
 
@@ -90,6 +97,7 @@ def analyze_lending(market: dict) -> dict:
     supplied = float(market["supplied"])
     borrowed = float(market["borrowed"])
     collateral_factor = float(market.get("collateral_factor", 0.75))
+    oracle_profile = market.get("oracle_profile", "standard")
     utilization = 0.0 if supplied <= 0 else borrowed / supplied
 
     if utilization > 0.8:
@@ -103,7 +111,11 @@ def analyze_lending(market: dict) -> dict:
         "utilization": utilization,
         "collateral_factor": collateral_factor,
         "liquidation_risk": liquidation_risk,
-        "oracle_risk": "medium",
+        "oracle_risk": {
+            "redundant": "low",
+            "standard": "medium",
+            "fragile": "high",
+        }.get(oracle_profile, "medium"),
     }
 
 
@@ -166,11 +178,13 @@ def simulate_fee_shift(structure: dict) -> dict:
 def run_defi_analysis() -> dict:
     """Run the default PCI DeFi analysis suite."""
     amm = analyze_amm({"reserve0": 500000, "reserve1": 800000, "fee": 0.003})
-    lp = lp_risk({"reserve0": 500000, "reserve1": 800000, "volatility": 0.4})
+    lp = lp_risk({"reserve0": 500000, "reserve1": 800000, "volatility": 0.2})
     yield_analysis = analyze_yield(
         {"real_yield": 0.05, "emissions": 0.02, "synthetic": 0.01}
     )
-    lending = analyze_lending({"borrowed": 300000, "supplied": 800000})
+    lending = analyze_lending(
+        {"borrowed": 300000, "supplied": 800000, "oracle_profile": "redundant"}
+    )
     bridge = analyze_bridge({"finality": 180, "trust": "optimistic"})
     routing = routing_graph(["eth->arb", "arb->base"])
 
